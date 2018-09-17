@@ -1,0 +1,143 @@
+//
+//  HomeTableViewCell.m
+//  JiaoJiangChart
+//
+//  Created by 钟程 on 2018/9/13.
+//  Copyright © 2018年 钟程. All rights reserved.
+//
+
+#import "HomeTableViewCell.h"
+
+@interface HomeTableViewCell ()
+
+@property (strong, nonatomic)UILabel *lableTitle;
+@property (strong, nonatomic)UILabel *lableCreate;
+@property (strong, nonatomic)UILabel *lableUpdate;
+@property (strong, nonatomic)UILabel *lableRow;
+
+
+
+@end
+
+@implementation HomeTableViewCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        
+//        self.backgroundColor = DefaultBackColor;
+        
+        //标题
+        self.lableTitle = [UILabel new];
+        self.lableTitle.textColor = [UIColor colorWithSome:50];
+        self.lableTitle.font = BoldFont(20);
+        self.lableTitle.text = @"无备注";
+        [self.contentView addSubview:self.lableTitle];
+        [self.lableTitle mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.contentView.mas_left).offset(SPACE);
+            make.right.mas_equalTo(self.contentView.mas_right).offset(-SPACE);
+            make.top.mas_equalTo(self.contentView.mas_top).offset(SPACE);
+            make.height.mas_equalTo(30);
+        }];
+        
+        //创建时间
+        self.lableCreate = [UILabel new];
+        self.lableCreate.textColor = [UIColor colorWithSome:101];
+        self.lableCreate.font = Font(18);
+        //        self.lableTitle.text = @"阿娥无法微风微风";
+        [self.contentView addSubview:self.lableCreate];
+        [self.lableCreate mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.contentView.mas_left).offset(SPACE);
+            make.right.mas_equalTo(self.contentView.mas_right).offset(-SPACE);
+            make.top.mas_equalTo(self.lableTitle.mas_bottom).offset(5);
+            make.height.mas_equalTo(30);
+        }];
+        
+        //更新时间
+        self.lableUpdate = [UILabel new];
+        self.lableUpdate.textColor = [UIColor colorWithSome:101];
+        self.lableUpdate.font = Font(18);
+        //        self.lableTitle.text = @"阿娥无法微风微风";
+        [self.contentView addSubview:self.lableUpdate];
+        [self.lableUpdate mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.contentView.mas_left).offset(SPACE);
+            make.right.mas_equalTo(self.contentView.mas_right).offset(-SPACE);
+            make.top.mas_equalTo(self.lableCreate.mas_bottom).offset(5);
+            make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-SPACE);
+            make.height.mas_equalTo(30);
+        }];
+
+        //行数
+        self.lableRow = [UILabel new];
+        self.lableRow.backgroundColor = [UIColor colorWithQuick:10 green:60 blue:170];
+        self.lableRow.textColor = [UIColor colorWithSome:255];
+        self.lableRow.font = BoldFont(20);
+        self.lableRow.textAlignment = NSTextAlignmentCenter;
+        self.lableRow.layer.cornerRadius = 25;
+        self.lableRow.layer.masksToBounds = YES;
+        self.lableRow.layer.borderColor = [UIColor colorWithQuick:10 green:10 blue:100].CGColor;
+        self.lableRow.layer.borderWidth = 1;
+        self.lableRow.text = @"0";
+        [self.contentView addSubview:self.lableRow];
+        [self.lableRow mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(50);
+            make.right.mas_equalTo(self.contentView.mas_right).offset(-SPACE);
+            make.top.mas_equalTo(self.contentView.mas_top).offset(SPACE);
+            make.height.mas_equalTo(50);
+        }];
+        
+        // 分割线
+        UILabel *label = [UILabel new];
+        label.backgroundColor = [UIColor colorWithSome:150];
+        [self.contentView addSubview:label];
+        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.contentView.mas_left);
+            make.right.mas_equalTo(self.contentView.mas_right);
+            make.bottom.mas_equalTo(self.contentView.mas_bottom);
+            make.height.mas_equalTo(1);
+        }];
+
+        
+
+        
+        
+        
+    }
+    return self;
+}
+
+-(void)setCellData:(NSDictionary *)cellData {
+    
+    if (![[cellData objectForKey:@"title"] isKindOfClass:[NSNull class]]) {
+        self.lableTitle.text   = [cellData objectForKey:@"title"];
+    }
+    
+    if (![[cellData objectForKey:@"createTime"] isKindOfClass:[NSNull class]]) {
+        self.lableCreate.text   = [cellData objectForKey:@"createTime"];
+    }
+    
+    if (![[cellData objectForKey:@"updateTime"] isKindOfClass:[NSNull class]]) {
+        self.lableUpdate.text   = [cellData objectForKey:@"updateTime"];
+    }
+    
+    if (![[cellData objectForKey:@"row"] isKindOfClass:[NSNull class]]) {
+        self.lableRow.text   = [cellData objectForKey:@"row"];
+    }
+    
+}
+
+
+
+
+@end
