@@ -19,11 +19,19 @@
 		0F0BFF50214A0618004C597F /* UIColor+ReadBank.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BFF4E214A0618004C597F /* UIColor+ReadBank.m */; };
 		0F0BFF57214A0FA7004C597F /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BFF55214A0FA7004C597F /* ContentViewController.m */; };
 		0F0BFF5C214A1C15004C597F /* ContentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0BFF5B214A1C15004C597F /* ContentCollectionViewCell.m */; };
+		0F0FB6A22152708A007C7452 /* IndicatorManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0FB6A02152708A007C7452 /* IndicatorManger.m */; };
 		0F11505E214B999700490BAD /* BottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F11505D214B999700490BAD /* BottomView.m */; };
 		0F115060214B99A600490BAD /* BottomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F11505F214B99A600490BAD /* BottomView.xib */; };
 		0F115066214B9A5B00490BAD /* UIControl+XIBLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F115064214B9A5B00490BAD /* UIControl+XIBLayer.m */; };
 		0F115067214B9A5B00490BAD /* UIView+XIBLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F115065214B9A5B00490BAD /* UIView+XIBLayer.m */; };
 		0F11506A214BA08500490BAD /* BottomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F115069214BA08500490BAD /* BottomButton.m */; };
+		0F901D18214F919100D99DE3 /* ListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D17214F919100D99DE3 /* ListModel.m */; };
+		0F901D1C214F91B000D99DE3 /* DetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D1B214F91B000D99DE3 /* DetailModel.m */; };
+		0F901D2A214F939800D99DE3 /* FMDBManager+Detail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D21214F939700D99DE3 /* FMDBManager+Detail.m */; };
+		0F901D2C214F939800D99DE3 /* FMDBManager+TableList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D23214F939700D99DE3 /* FMDBManager+TableList.m */; };
+		0F901D2D214F939800D99DE3 /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D24214F939700D99DE3 /* FileManager.m */; };
+		0F901D2E214F939800D99DE3 /* FMDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D25214F939700D99DE3 /* FMDBManager.m */; };
+		0F9CA45E2150FD91005A6A3D /* CustomPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9CA45D2150FD91005A6A3D /* CustomPopOverView.m */; };
 		0FF2EE64214A5E0500353E7E /* ItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF2EE62214A5E0500353E7E /* ItemCollectionViewCell.m */; };
 		0FF2EE65214A5E0500353E7E /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FF2EE63214A5E0500353E7E /* ItemCollectionViewCell.xib */; };
 		0FF2EE67214A653D00353E7E /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FF2EE66214A653D00353E7E /* ContentViewController.xib */; };
@@ -74,6 +82,8 @@
 		0F0BFF55214A0FA7004C597F /* ContentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
 		0F0BFF5A214A1C15004C597F /* ContentCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContentCollectionViewCell.h; sourceTree = "<group>"; };
 		0F0BFF5B214A1C15004C597F /* ContentCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContentCollectionViewCell.m; sourceTree = "<group>"; };
+		0F0FB6A02152708A007C7452 /* IndicatorManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndicatorManger.m; sourceTree = "<group>"; };
+		0F0FB6A12152708A007C7452 /* IndicatorManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndicatorManger.h; sourceTree = "<group>"; };
 		0F11505C214B999700490BAD /* BottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomView.h; sourceTree = "<group>"; };
 		0F11505D214B999700490BAD /* BottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomView.m; sourceTree = "<group>"; };
 		0F11505F214B99A600490BAD /* BottomView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomView.xib; sourceTree = "<group>"; };
@@ -83,6 +93,20 @@
 		0F115065214B9A5B00490BAD /* UIView+XIBLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+XIBLayer.m"; sourceTree = "<group>"; };
 		0F115068214BA08500490BAD /* BottomButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomButton.h; sourceTree = "<group>"; };
 		0F115069214BA08500490BAD /* BottomButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomButton.m; sourceTree = "<group>"; };
+		0F901D16214F919100D99DE3 /* ListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListModel.h; sourceTree = "<group>"; };
+		0F901D17214F919100D99DE3 /* ListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListModel.m; sourceTree = "<group>"; };
+		0F901D1A214F91B000D99DE3 /* DetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailModel.h; sourceTree = "<group>"; };
+		0F901D1B214F91B000D99DE3 /* DetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailModel.m; sourceTree = "<group>"; };
+		0F901D1E214F939700D99DE3 /* FMDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDBManager.h; sourceTree = "<group>"; };
+		0F901D1F214F939700D99DE3 /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManager.h; sourceTree = "<group>"; };
+		0F901D21214F939700D99DE3 /* FMDBManager+Detail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FMDBManager+Detail.m"; sourceTree = "<group>"; };
+		0F901D23214F939700D99DE3 /* FMDBManager+TableList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FMDBManager+TableList.m"; sourceTree = "<group>"; };
+		0F901D24214F939700D99DE3 /* FileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManager.m; sourceTree = "<group>"; };
+		0F901D25214F939700D99DE3 /* FMDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDBManager.m; sourceTree = "<group>"; };
+		0F901D26214F939700D99DE3 /* FMDBManager+Detail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDBManager+Detail.h"; sourceTree = "<group>"; };
+		0F901D28214F939700D99DE3 /* FMDBManager+TableList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDBManager+TableList.h"; sourceTree = "<group>"; };
+		0F9CA45C2150FD90005A6A3D /* CustomPopOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPopOverView.h; sourceTree = "<group>"; };
+		0F9CA45D2150FD91005A6A3D /* CustomPopOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPopOverView.m; sourceTree = "<group>"; };
 		0FF2EE61214A5E0500353E7E /* ItemCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemCollectionViewCell.h; sourceTree = "<group>"; };
 		0FF2EE62214A5E0500353E7E /* ItemCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItemCollectionViewCell.m; sourceTree = "<group>"; };
 		0FF2EE63214A5E0500353E7E /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -143,6 +167,7 @@
 		0F0BFF142149F7C0004C597F /* JiaoJiangChart */ = {
 			isa = PBXGroup;
 			children = (
+				0F901CFE214F86A400D99DE3 /* Managers */,
 				0F0BFF53214A0F4C004C597F /* ContentViewController */,
 				0F0BFF4C214A05FE004C597F /* Catgory */,
 				0F0BFF51214A0685004C597F /* HomeViewController */,
@@ -197,6 +222,7 @@
 		0F0BFF51214A0685004C597F /* HomeViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0F901D15214F917900D99DE3 /* Model */,
 				0F0BFF52214A06CA004C597F /* View */,
 				0F0BFF182149F7C0004C597F /* ViewController.h */,
 				0F0BFF192149F7C0004C597F /* ViewController.m */,
@@ -208,6 +234,8 @@
 		0F0BFF52214A06CA004C597F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0F9CA45C2150FD90005A6A3D /* CustomPopOverView.h */,
+				0F9CA45D2150FD91005A6A3D /* CustomPopOverView.m */,
 				0F0BFF472149FC87004C597F /* HomeTableViewCell.h */,
 				0F0BFF482149FC87004C597F /* HomeTableViewCell.m */,
 			);
@@ -217,6 +245,7 @@
 		0F0BFF53214A0F4C004C597F /* ContentViewController */ = {
 			isa = PBXGroup;
 			children = (
+				0F901D19214F91A000D99DE3 /* Model */,
 				0F0BFF59214A1019004C597F /* View */,
 				0F0BFF54214A0FA7004C597F /* ContentViewController.h */,
 				0F0BFF55214A0FA7004C597F /* ContentViewController.m */,
@@ -242,6 +271,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		0F0FB69F2152708A007C7452 /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				0F0FB6A02152708A007C7452 /* IndicatorManger.m */,
+				0F0FB6A12152708A007C7452 /* IndicatorManger.h */,
+			);
+			path = HUD;
+			sourceTree = "<group>";
+		};
 		0F115061214B9A5B00490BAD /* XIB */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +289,48 @@
 				0F115065214B9A5B00490BAD /* UIView+XIBLayer.m */,
 			);
 			path = XIB;
+			sourceTree = "<group>";
+		};
+		0F901CFE214F86A400D99DE3 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				0F0FB69F2152708A007C7452 /* HUD */,
+				0F901D1D214F939700D99DE3 /* FMDBManager */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		0F901D15214F917900D99DE3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0F901D16214F919100D99DE3 /* ListModel.h */,
+				0F901D17214F919100D99DE3 /* ListModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0F901D19214F91A000D99DE3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0F901D1A214F91B000D99DE3 /* DetailModel.h */,
+				0F901D1B214F91B000D99DE3 /* DetailModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0F901D1D214F939700D99DE3 /* FMDBManager */ = {
+			isa = PBXGroup;
+			children = (
+				0F901D1E214F939700D99DE3 /* FMDBManager.h */,
+				0F901D25214F939700D99DE3 /* FMDBManager.m */,
+				0F901D28214F939700D99DE3 /* FMDBManager+TableList.h */,
+				0F901D23214F939700D99DE3 /* FMDBManager+TableList.m */,
+				0F901D26214F939700D99DE3 /* FMDBManager+Detail.h */,
+				0F901D21214F939700D99DE3 /* FMDBManager+Detail.m */,
+				0F901D1F214F939700D99DE3 /* FileManager.h */,
+				0F901D24214F939700D99DE3 /* FileManager.m */,
+			);
+			path = FMDBManager;
 			sourceTree = "<group>";
 		};
 		6A75E6FB80E060CA0C17CDF1 /* Pods */ = {
@@ -430,13 +510,21 @@
 				0F115067214B9A5B00490BAD /* UIView+XIBLayer.m in Sources */,
 				0F0BFF1A2149F7C0004C597F /* ViewController.m in Sources */,
 				0F0BFF57214A0FA7004C597F /* ContentViewController.m in Sources */,
+				0F901D2E214F939800D99DE3 /* FMDBManager.m in Sources */,
+				0F901D1C214F91B000D99DE3 /* DetailModel.m in Sources */,
+				0F0FB6A22152708A007C7452 /* IndicatorManger.m in Sources */,
 				0F0BFF252149F7C1004C597F /* main.m in Sources */,
+				0F901D2C214F939800D99DE3 /* FMDBManager+TableList.m in Sources */,
 				0F115066214B9A5B00490BAD /* UIControl+XIBLayer.m in Sources */,
 				0F0BFF492149FC87004C597F /* HomeTableViewCell.m in Sources */,
+				0F9CA45E2150FD91005A6A3D /* CustomPopOverView.m in Sources */,
 				0F0BFF5C214A1C15004C597F /* ContentCollectionViewCell.m in Sources */,
+				0F901D18214F919100D99DE3 /* ListModel.m in Sources */,
+				0F901D2A214F939800D99DE3 /* FMDBManager+Detail.m in Sources */,
 				0F0BFF172149F7C0004C597F /* AppDelegate.m in Sources */,
 				0F11506A214BA08500490BAD /* BottomButton.m in Sources */,
 				0F11505E214B999700490BAD /* BottomView.m in Sources */,
+				0F901D2D214F939800D99DE3 /* FileManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

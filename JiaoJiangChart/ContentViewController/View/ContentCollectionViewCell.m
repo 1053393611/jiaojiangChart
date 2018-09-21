@@ -78,7 +78,7 @@
     self.collectionView.tag = 500;
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, itemWidth, self.contentView.bounds.size.height) collectionViewLayout:flowLayout];
     self.collectionView.collectionViewLayout = flowLayout;
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = DefaultBackColor;
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
 //    [self.collectionView registerClass:[ItemCollectionViewCell class] forCellWithReuseIdentifier:@"itemCell"];
@@ -133,7 +133,6 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
     UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
 //    header.backgroundColor = RGB(236, 237,241);
-    
     self.imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemWidth, HeadHeight)];
     self.imgView.image = [UIImage imageNamed:@"background"];
     [header addSubview:self.imgView];

@@ -38,6 +38,16 @@
         
 //        self.backgroundColor = DefaultBackColor;
         
+        UIImageView *imgView = [UIImageView new];
+        imgView.image = [UIImage imageNamed:@"cellBack"];
+        [self.contentView addSubview:imgView];
+        [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.contentView.mas_left);
+            make.right.mas_equalTo(self.contentView.mas_right);
+            make.top.mas_equalTo(self.contentView.mas_top);
+            make.bottom.mas_equalTo(self.contentView.mas_bottom);
+        }];
+        
         //标题
         self.lableTitle = [UILabel new];
         self.lableTitle.textColor = [UIColor colorWithSome:50];
@@ -121,18 +131,30 @@
     
     if (![[cellData objectForKey:@"title"] isKindOfClass:[NSNull class]]) {
         self.lableTitle.text   = [cellData objectForKey:@"title"];
+        if ([self.lableTitle.text isEqualToString:@"无备注"]) {
+            self.lableTitle.textColor = [UIColor colorWithSome:101];
+        }else {
+            self.lableTitle.textColor = [UIColor colorWithSome:50];
+        }
     }
     
     if (![[cellData objectForKey:@"createTime"] isKindOfClass:[NSNull class]]) {
-        self.lableCreate.text   = [cellData objectForKey:@"createTime"];
+        
+        NSString *str = [NSString stringWithFormat:@"创建于 %@", [cellData objectForKey:@"createTime"]];
+        NSMutableAttributedString *att  = [[NSMutableAttributedString alloc] initWithString:str attributes:nil];
+        [att addAttribute:NSFontAttributeName value:BoldFont(20) range:NSMakeRange(4, 11)];
+        [att addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithSome:50] range:NSMakeRange(4, 11)];
+    
+//        self.lableCreate.text   = [cellData objectForKey:@"createTime"];
+        self.lableCreate.attributedText = att;
     }
     
     if (![[cellData objectForKey:@"updateTime"] isKindOfClass:[NSNull class]]) {
-        self.lableUpdate.text   = [cellData objectForKey:@"updateTime"];
+        self.lableUpdate.text   = [NSString stringWithFormat:@"更新于 %@", [cellData objectForKey:@"updateTime"]];
     }
     
     if (![[cellData objectForKey:@"row"] isKindOfClass:[NSNull class]]) {
-        self.lableRow.text   = [cellData objectForKey:@"row"];
+        self.lableRow.text   = [[cellData objectForKey:@"row"] description];
     }
     
 }

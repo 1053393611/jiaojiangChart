@@ -25,6 +25,8 @@
 #define HBScreenScale           [UIScreen mainScreen].scale
 
 #define SPACE 15
+// 默认创建列数
+#define rowMax 20
 
 //  应用程序
 #define HBApplication           [UIApplication sharedApplication]

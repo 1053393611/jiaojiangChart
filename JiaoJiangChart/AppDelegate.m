@@ -17,6 +17,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    FMDatabase *db = [FMDatabase databaseWithPath:[FileManager databaseForMasterPath]];
+    [FMDB checkBehaviorTableExist:db];
+    
+    
     return YES;
 }
 

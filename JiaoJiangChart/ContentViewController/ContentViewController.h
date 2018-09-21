@@ -10,4 +10,8 @@
 
 @interface ContentViewController : UIViewController
 
+@property (copy, nonatomic) NSString *listId;
+@property (strong, nonatomic) ListModel *listModel;
+
+
 @end

@@ -31,7 +31,7 @@
 - (void)setBorderColor:(UIColor *)borderColor {
     self.layer.borderColor = borderColor.CGColor;
 }
-- (CGFloat)boderWidth {
+- (CGFloat)borderWidth {
     return self.layer.borderWidth;
 }
 

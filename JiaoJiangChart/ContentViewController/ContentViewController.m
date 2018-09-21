@@ -10,6 +10,8 @@
 #import "ContentCollectionViewCell.h"
 #import "BottomView.h"
 
+
+#define rowMax 20
 @interface ContentViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>{
     NSInteger itemHeight;
     NSInteger itemWidth;
@@ -24,14 +26,18 @@
 
 @property (assign, nonatomic)  NSInteger count;
 
-@property (assign, nonatomic)  NSInteger row;
+@property (assign, nonatomic)  NSInteger row; // 列
 @property (assign, nonatomic)  NSInteger list;
 
 @property (strong, nonatomic) NSMutableArray *seletedArray;
 
-@property (assign, nonatomic)  NSInteger contentofset;  // 记录偏移值
+//@property (assign, nonatomic)  NSInteger contentofset;  // 记录偏移值
 
 @property (assign, nonatomic)  BOOL isMark; // 是否有标志
+
+@property (assign, nonatomic)  BOOL isUpdate; // 是否修改
+
+@property (strong, nonatomic) UILabel *titleLabel;
 
 
 @end
@@ -42,9 +48,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = DefaultBackColor;
-    self.contentofset = 0;
+//    self.contentofset = 0;
     self.isMark = NO;
-    itemWidth = 70;
+    self.isUpdate = NO;
+    itemWidth = 60;
     self.count = 0;
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doRotateAction:) name:UIDeviceOrientationDidChangeNotification object:nil];
@@ -57,10 +64,10 @@
     [self getData];
     
     if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait || [[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown) {
-            itemHeight = HBLandscapeViewHeight - 50;
+            itemHeight = HBLandscapeViewHeight - 70;
         
     } else if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft || [[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
-            itemHeight = HBViewHeight - 50;
+            itemHeight = HBViewHeight - 70;
     }
 
     self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
@@ -68,6 +75,8 @@
 
     [self createCollectionView];
     [self createBottomView];
+    [self customNavigation];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,7 +101,47 @@
 //    }
 //}
 
+#pragma mark - UI
+- (void)customNavigation {
+    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftButton.frame = CGRectMake(0, 0, 80, 36);
+    [leftButton addTarget:self action:@selector(leftAction) forControlEvents:UIControlEventTouchUpInside];
+    [leftButton setTitle:@"返回" forState:UIControlStateNormal];
+    [leftButton setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
+    leftButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+    leftButton.layer.masksToBounds = YES;
+    leftButton.layer.cornerRadius = 18;
+    leftButton.layer.borderWidth = 1;
+    leftButton.layer.borderColor = [UIColor colorWithSome:100].CGColor;
+    leftButton.backgroundColor = DefaultBackColor;
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    self.navigationItem.leftBarButtonItem = left;
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    view.userInteractionEnabled = YES;
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 22)];
+    self.titleLabel.userInteractionEnabled = YES;
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    if ([_listModel.title isEqualToString:@"无备注"]) {
+        self.titleLabel.text = @"点击添加备注";
+    }else {
+        self.titleLabel.text = _listModel.title;
+    }
+    self.titleLabel.font = BoldFont(20);
+    [view addSubview:self.titleLabel];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleAction:)];
+    [self.titleLabel addGestureRecognizer:tap];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 22, 200, 22)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = Font(14);
+    label.text = [self.listModel.createTime substringWithRange:NSMakeRange(0, 11)];
+    [view addSubview:label];
+    
+    self.navigationItem.titleView = view;
 
+}
 
 
 
@@ -144,7 +193,7 @@
         make.left.mas_equalTo(self.view.mas_left);
         make.right.mas_equalTo(self.view.mas_right);
         make.top.mas_equalTo(self.collectionView.mas_bottom);
-        make.height.mas_equalTo(50);
+        make.height.mas_equalTo(70);
     }];
     
     
@@ -159,14 +208,22 @@
     
     UIButton *widthButton = [self.bottomView viewWithTag:202];
     [widthButton addTarget:self action:@selector(widthAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *deleteButton = [self.bottomView viewWithTag:301];
+    [deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
+
+    UIButton *updateButton = [self.bottomView viewWithTag:302];
+    [updateButton addTarget:self action:@selector(updateAction) forControlEvents:UIControlEventTouchUpInside];
 
     
 }
 
 #pragma mark - UICollectionViewDatasource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    
-    return 50;
+    if (self.data != nil && self.data.count >= rowMax) {
+        return self.data.count;
+    }
+    return rowMax;
 }
 
 
@@ -185,6 +242,41 @@
     cell.cellData = self.data[indexPath.row];
     return cell;
 }
+
+#pragma mark - title
+- (void)titleAction:(UITapGestureRecognizer *)tap {
+    UILabel *label = (UILabel *)tap.view;
+    UIAlertController *alt = [UIAlertController alertControllerWithTitle:@"修改备注" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alt addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        textField.placeholder = @"请输入备注";
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        if ([alt.textFields.firstObject.text isEqualToString:@""]) {
+            [Hud showMessage:@"请输入备注"];
+        }else{
+            label.text = alt.textFields.firstObject.text;
+            self.listModel.title = label.text;
+            [FMDB updateTableList:self.listModel];
+        }
+        
+    }];
+    
+    
+    [alt addAction:cancelAction];
+    [alt addAction:okAction];
+    
+    [self presentViewController:alt animated:YES completion:^{
+        
+    }];
+
+    
+}
+
 
 
 #pragma mark - 按钮处理
@@ -206,6 +298,8 @@
         [self setContentOffset];
         [self setpreRowMark];
         self.row++;
+        self.listModel.row = self.row;
+        [FMDB updateTableList:self.listModel];
         self.count = 0;
         [self.bottomView setAllButtonWhiter];
         return;
@@ -263,18 +357,65 @@
 // row宽度
 - (void)widthAction {
     itemWidth += 5;
-    if (itemWidth >= 100) {
-        itemWidth = 70;
+    if (itemWidth >= 90) {
+        itemWidth = 60;
     }
     [self createCollectionView];
+    if ((self.row + 1) * 60 < HBScreenWidth ) {
+        [self.collectionView setContentOffset:CGPointMake(0, 0) animated:NO];
+    }else{
+        [self.collectionView setContentOffset:CGPointMake((self.row + 1)* itemWidth - HBScreenWidth, 0) animated:NO];
+
+    }
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshWidth" object:[NSNumber numberWithInteger:itemWidth]];
 }
+
+
+// 删除
+- (void)deleteAction {
+    UIAlertController *controller=[UIAlertController alertControllerWithTitle:@"警告" message:@"删除后数据不可恢复" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *act1=[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [FMDB deleteTableList:self.listModel];
+        [self.navigationController popViewControllerAnimated:YES];
+
+    }];
+    UIAlertAction *act2=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [controller addAction:act1];
+    [controller addAction:act2];
+    [self presentViewController:controller animated:YES completion:^{
+        
+    }];
+
+}
+
+
+// 修改
+- (void)updateAction {
+    self.isUpdate = YES;
+    UIView *view = [self.bottomView viewWithTag:300];
+    view.hidden = YES;
+    
+    self.listModel.updateTime = [self getNowTime];
+    [FMDB updateTableList:self.listModel];
+    
+}
+
+// 返回
+- (void)leftAction {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 
 
 #pragma mark - 数据
 - (void)getData {
     self.row = 0;
+
     NSMutableArray *array = [NSMutableArray array];
     for (int i = 0 ; i < 12; i++) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@false, @"seleted":@false}];
@@ -285,7 +426,7 @@
     
     
     
-    for (int i = 0; i < 50; i++) {
+    for (int i = 0; i < rowMax; i++) {
         NSMutableArray *m = [NSMutableArray arrayWithArray:array];
         [self.data addObject:m];
     }
@@ -316,6 +457,7 @@
         [dic setObject:@false forKey:@"background"];
         [array addObject:dic];
     }
+    
     [self.data replaceObjectAtIndex:self.row withObject:array];
 
     
@@ -324,7 +466,13 @@
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@false}];
         [a addObject:dic];
     }
-    [self.data replaceObjectAtIndex:self.row + 1 withObject:a];
+//    [self.data replaceObjectAtIndex:self.row + 1 withObject:a];
+    if (self.row < rowMax - 1) {
+        [self.data replaceObjectAtIndex:self.row + 1 withObject:a];
+        
+    }else{
+        [self.data addObject:a];
+    }
 //    [self.data addObject:a];
 
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@true}];
@@ -485,13 +633,38 @@
 
 #pragma mark - 设置偏移量
 - (void)setContentOffset {
-    if ((self.row + 1) * itemWidth > HBScreenWidth *3/5) {
-        if (self.contentofset == 0) {
-            self.contentofset = self.row;
-        }
-        [self.collectionView setContentOffset:CGPointMake((self.row - self.contentofset) * itemWidth, 0) animated:YES];
+    if ((self.row + 2) * itemWidth > HBScreenWidth) {
+//        if (self.contentofset == 0) {
+//            self.contentofset = self.row;
+//        }
+        [self.collectionView setContentOffset:CGPointMake((self.row + 2)* itemWidth - HBScreenWidth, 0) animated:NO];
     }
 }
+
+#pragma mark - 获取当前时间
+-(NSString *)getNowTime{
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+    
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    
+    [formatter setDateFormat:@"YYYY年MM月dd日 HH:mm:ss"]; // ----------设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
+    //设置时区,这个对于时间的处理有时很重要
+    //    NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+    //
+    //    [formatter setTimeZone:timeZone];
+    
+    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
+    
+    
+    NSString *locationString = [formatter stringFromDate:datenow];
+    
+    return locationString;
+    
+}
+
 
 
 

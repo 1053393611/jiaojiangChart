@@ -7,9 +7,9 @@ target 'JiaoJiangChart' do
 
   # Pods for JiaoJiangChart
 
-  pod "Masonry"
-  
-  
+  pod 'Masonry'
+  pod 'FMDB'
+  pod 'MBProgressHUD'
   
   
 end
