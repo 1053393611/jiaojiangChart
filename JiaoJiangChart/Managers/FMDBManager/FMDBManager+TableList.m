@@ -11,7 +11,7 @@
 @implementation FMDBManager (TableList)
 
 - (BOOL)checkTableListExist:(FMDatabase *)db {
-    NSString *sql = @"create table if not exists 'tbl_List' ('listId' VARCHAR PRIMARY KEY,'title' VARCHAR,'createTime' VARCHAR,'updateTime' VARCHAR,'row' INTEGER)";
+    NSString *sql = @"create table if not exists 'tbl_List' ('listId' VARCHAR PRIMARY KEY,'title' VARCHAR,'createTime' VARCHAR,'updateTime' VARCHAR,'row' INTEGER,'skip' INTEGER)";
     
     BOOL result = [db executeUpdate:sql];
     
@@ -22,7 +22,7 @@
 - (BOOL)insertTableList:(ListModel *)listModel{
     __block BOOL result = NO;
     [self.master inTransaction:^(FMDatabase *db, BOOL *rollback) {
-        NSString *sql = [NSString stringWithFormat:@"insert into tbl_List (listId,title,createTime,updateTime,row) values ('%@','%@','%@','%@',%ld)", listModel.listId, listModel.title, listModel.createTime, listModel.updateTime, listModel.row];
+        NSString *sql = [NSString stringWithFormat:@"insert into tbl_List (listId,title,createTime,updateTime,row,skip) values ('%@','%@','%@','%@',%ld,%ld)", listModel.listId, listModel.title, listModel.createTime, listModel.updateTime, listModel.row, listModel.skip];
         
         BOOL result = [db executeUpdate:sql];
         if ( !result ) {
@@ -36,7 +36,7 @@
 - (BOOL)updateTableList:(ListModel *)listModel {
     __block BOOL result = NO;
     [self.master inTransaction:^(FMDatabase *db, BOOL *rollback) {
-        NSString *sql = [NSString stringWithFormat:@"update tbl_List set title = '%@',createTime = '%@',updateTime = '%@',row = %ld where listId = '%@'", listModel.title, listModel.createTime, listModel.updateTime, listModel.row, listModel.listId];
+        NSString *sql = [NSString stringWithFormat:@"update tbl_List set title = '%@',createTime = '%@',updateTime = '%@',row = %ld,skip = %ld where listId = '%@'", listModel.title, listModel.createTime, listModel.updateTime, listModel.row, listModel.skip, listModel.listId];
         
         BOOL result = [db executeUpdate:sql];
         if ( !result ) {

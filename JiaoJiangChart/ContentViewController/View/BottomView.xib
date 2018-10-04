@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,8 +35,28 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </button>
+                <button opaque="NO" tag="502" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fqw-7V-VCB" customClass="BottomButton">
+                    <rect key="frame" x="15" y="5" width="55" height="55"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="55" id="KXW-cG-vef"/>
+                        <constraint firstAttribute="height" constant="55" id="wwZ-Gk-jd6"/>
+                    </constraints>
+                    <state key="normal" image="share"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadious">
+                            <real key="value" value="27.5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
                 <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTY-nt-qcp" customClass="BottomButton">
-                    <rect key="frame" x="570.5" y="4.5" width="55" height="55"/>
+                    <rect key="frame" x="570.5" y="5" width="55" height="55"/>
                     <color key="backgroundColor" red="0.86274509799999999" green="0.98039215690000003" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="D7L-5X-7m7"/>
@@ -96,7 +116,7 @@
                     </userDefinedRuntimeAttributes>
                 </button>
                 <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Pg-np-5xH" customClass="BottomButton">
-                    <rect key="frame" x="360.5" y="4.5" width="55" height="55"/>
+                    <rect key="frame" x="360.5" y="5" width="55" height="55"/>
                     <color key="backgroundColor" red="0.86274509799999999" green="0.98039215690000003" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="55" id="X30-3f-MGY"/>
@@ -116,7 +136,7 @@
                     </userDefinedRuntimeAttributes>
                 </button>
                 <button opaque="NO" tag="202" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpO-Hq-Rli" customClass="BottomButton">
-                    <rect key="frame" x="125.5" y="4.5" width="55" height="55"/>
+                    <rect key="frame" x="125.5" y="5" width="55" height="55"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="55" id="4sf-Bn-LkB"/>
@@ -252,6 +272,7 @@
                 <constraint firstItem="Dwk-RN-wYk" firstAttribute="leading" secondItem="mCk-Yn-cXq" secondAttribute="trailing" constant="15" id="47R-oc-v3h"/>
                 <constraint firstItem="kpO-Hq-Rli" firstAttribute="leading" secondItem="Y8L-Mx-39r" secondAttribute="trailing" constant="15" id="84Y-V1-viB"/>
                 <constraint firstItem="Vpb-zn-LPY" firstAttribute="centerY" secondItem="QCX-4R-AdT" secondAttribute="centerY" id="EDq-BL-Zxg"/>
+                <constraint firstItem="Fqw-7V-VCB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="KHY-0Q-j5N"/>
                 <constraint firstItem="NTY-nt-qcp" firstAttribute="centerY" secondItem="QCX-4R-AdT" secondAttribute="centerY" id="Lvp-3U-A7A"/>
                 <constraint firstItem="mCk-Yn-cXq" firstAttribute="leading" secondItem="5Pg-np-5xH" secondAttribute="trailing" constant="15" id="Pud-SI-IIj"/>
                 <constraint firstItem="QCX-4R-AdT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="SHJ-Et-DBS"/>
@@ -266,6 +287,7 @@
                 <constraint firstItem="c55-ix-dlk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hmN-oi-Z05"/>
                 <constraint firstItem="NTY-nt-qcp" firstAttribute="leading" secondItem="Dwk-RN-wYk" secondAttribute="trailing" constant="15" id="obx-K3-cyy"/>
                 <constraint firstItem="5Pg-np-5xH" firstAttribute="centerY" secondItem="QCX-4R-AdT" secondAttribute="centerY" id="pUi-xV-Mze"/>
+                <constraint firstItem="Fqw-7V-VCB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="vL7-hG-dOc"/>
                 <constraint firstAttribute="trailing" secondItem="c55-ix-dlk" secondAttribute="trailing" id="wvc-ml-2Br"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -280,6 +302,7 @@
         <image name="number-4" width="43" height="43"/>
         <image name="number-5" width="43" height="43"/>
         <image name="number-6" width="43" height="43"/>
+        <image name="share" width="43" height="43"/>
         <image name="width" width="43" height="43"/>
     </resources>
 </document>

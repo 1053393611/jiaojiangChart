@@ -12,6 +12,8 @@
 
 - (void)setButtonGray:(NSInteger)index;
 
+- (void)setButtonWhiter:(NSInteger)index;
+
 - (void)setAllButtonGreen;
 
 - (void)setAllButtonWhiter;

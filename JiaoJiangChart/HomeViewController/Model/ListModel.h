@@ -15,6 +15,7 @@
 @property (nonatomic , copy) NSString              * createTime;
 @property (nonatomic , copy) NSString              * updateTime;
 @property (nonatomic , assign) NSInteger             row;
+@property (nonatomic , assign) NSInteger             skip;
 
 
 

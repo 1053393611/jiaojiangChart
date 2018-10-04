@@ -12,18 +12,40 @@
 
 
 - (BOOL)checkDetailExist:(FMDatabase *)db {
-    NSString *sql = @"create table if not exists 'tbl_Detail' ('detailId' VARCHAR PRIMARY KEY,'row' INTEGER,'column' INTEGER,'mark' INTEGER,'data' INTEGER,'background' INTEGER,'seleted' INTEGER)";
+    NSString *sql = @"create table if not exists 'tbl_Detail' ('detailId' VARCHAR,'row' INTEGER,'column' INTEGER,'mark' INTEGER,'data' INTEGER,'background' INTEGER,'seleted' INTEGER)";
     
     BOOL result = [db executeUpdate:sql];
     
     return result;
 }
 
-- (BOOL)insertDetail:(NSInteger)column detailId:(NSString *)detailId {
+- (BOOL)initDetail:(NSString *)detailId{
+    __block BOOL result = NO;
+    for (int j = 0; j < 20; j++) {
+        for (int i = 0; i < 12; i ++) {
+            [self.master inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                NSString *sql = [NSString stringWithFormat:@"insert into tbl_Detail (detailId,row,column,mark,data,background,seleted) values ('%@',%d,%d,0,0,0,0)", detailId, i, j];
+                
+                BOOL result = [db executeUpdate:sql];
+                if ( !result ) {
+                    *rollback = YES;
+                }
+            }];
+        }
+    }
+    
+    result = [self updateDetail:1 detailId:detailId background:1] && result;
+    DetailModel *model = [DetailModel initWithDetailId:detailId row:4 column:0 mark:0 data:0 background:0 seleted:1];
+    result = [self updateDetail:model] && result;
+    
+    return result;
+}
+
+- (BOOL)updateDetail:(NSInteger)column detailId:(NSString *)detailId background:(NSInteger)background{
     __block BOOL result = NO;
     for (int i = 0; i < 12; i ++) {
         [self.master inTransaction:^(FMDatabase *db, BOOL *rollback) {
-            NSString *sql = [NSString stringWithFormat:@"insert into tbl_Detail (detailId,row,column,mark,data,background,seleted) values ('%@',%d,%ld,0,0,0,0)", detailId, i, column];
+            NSString *sql = [NSString stringWithFormat:@"update tbl_Detail set mark = 0,data = 0,background = %ld,seleted = 0 where detailId = '%@' and row = %d and column = %ld", background, detailId, i, column];
             
             BOOL result = [db executeUpdate:sql];
             if ( !result ) {
@@ -35,6 +57,38 @@
     return result;
     
 }
+
+
+- (BOOL)insertDetail:(NSInteger)column detailId:(NSString *)detailId {
+    __block BOOL result = NO;
+    for (int i = 0; i < 12; i ++) {
+        [self.master inTransaction:^(FMDatabase *db, BOOL *rollback) {
+            NSString *sql = [NSString stringWithFormat:@"insert into tbl_Detail (detailId,row,column,mark,data,background,seleted) values ('%@',%d,%ld,0,0,1,0)", detailId, i, column];
+            
+            BOOL result = [db executeUpdate:sql];
+            if ( !result ) {
+                *rollback = YES;
+            }
+        }];
+    }
+    
+    return result;
+    
+}
+
+- (BOOL)deleteDetail:(NSInteger)column detailId:(NSString *)detailId{
+    __block BOOL result = NO;
+    [self.master inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        NSString *sql = [NSString stringWithFormat:@"delete from tbl_Detail where detailId = '%@' and column = %ld", detailId, column];
+        
+        BOOL result = [db executeUpdate:sql];
+        if ( !result ) {
+            *rollback = YES;
+        }
+    }];
+    return result;
+}
+
 
 - (BOOL)updateDetail:(DetailModel *)model{
     __block BOOL result = NO;
@@ -75,7 +129,8 @@
         
         while ( [rs next] ) {
             DetailModel *model = [DetailModel detailModelWithFMResultSet:rs];
-            [list addObject:model];
+            NSDictionary *dic = [DetailModel dictionaryWithDetailModel:model];
+            [list addObject:dic];
         }
         
         [rs close];

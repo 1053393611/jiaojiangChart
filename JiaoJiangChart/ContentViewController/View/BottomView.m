@@ -20,6 +20,13 @@
     button.backgroundColor = [UIColor clearColor];
 }
 
+- (void)setButtonWhiter:(NSInteger)index{
+    UIButton *button = [self viewWithTag:100 + index];
+    button.enabled = YES;
+    button.backgroundColor = [UIColor whiteColor];
+}
+
+
 - (void)setAllButtonGreen{
     for (int i = 1; i < 7; i++) {
         UIButton *button = [self viewWithTag:100 + i];

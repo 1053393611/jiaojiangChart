@@ -10,8 +10,9 @@
 
 @interface ContentViewController : UIViewController
 
-@property (copy, nonatomic) NSString *listId;
 @property (strong, nonatomic) ListModel *listModel;
+
+@property (assign, nonatomic)  BOOL isUpdate; // 是否修改
 
 
 @end

@@ -27,7 +27,7 @@
 @property (assign, nonatomic)  NSInteger count;
 
 @property (assign, nonatomic)  NSInteger row; // 列
-@property (assign, nonatomic)  NSInteger list;
+//@property (assign, nonatomic)  NSInteger list;
 
 @property (strong, nonatomic) NSMutableArray *seletedArray;
 
@@ -35,9 +35,14 @@
 
 @property (assign, nonatomic)  BOOL isMark; // 是否有标志
 
-@property (assign, nonatomic)  BOOL isUpdate; // 是否修改
 
 @property (strong, nonatomic) UILabel *titleLabel;
+
+@property (copy, nonatomic) NSString *detailId;
+
+@property (strong, nonatomic) NSMutableArray *deleteArray; //撤销数据
+
+
 
 
 @end
@@ -50,18 +55,21 @@
     self.view.backgroundColor = DefaultBackColor;
 //    self.contentofset = 0;
     self.isMark = NO;
-    self.isUpdate = NO;
+//    self.isUpdate = NO;
     itemWidth = 60;
-    self.count = 0;
-    
+//    self.count = 0;
+    self.detailId = self.listModel.listId;
+   
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doRotateAction:) name:UIDeviceOrientationDidChangeNotification object:nil];
     
 //    itemHeight = HBViewHeight;
 //        NSLog(@"宽：%f, 高：%f, %f, %f", HBScreenWidth, HBScreenHeight, HBViewHeight, HBLandscapeViewHeight);
     
+    
     self.data = [NSMutableArray array];
     self.seletedArray = [NSMutableArray array];
-    [self getData];
+    self.deleteArray = [NSMutableArray array];
+//    [self getData];
     
     if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait || [[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown) {
             itemHeight = HBLandscapeViewHeight - 70;
@@ -76,6 +84,19 @@
     [self createCollectionView];
     [self createBottomView];
     [self customNavigation];
+    [self getData];
+
+    
+    if (self.isUpdate) {
+        UIView *view = [self.bottomView viewWithTag:300];
+        view.hidden = YES;
+        [self createSkipButton];
+    }
+    
+    if (self.listModel.skip) {
+        self.collectionView.contentInset = UIEdgeInsetsMake(0, -60, 0, 0);
+
+    }
 
 }
 
@@ -106,7 +127,7 @@
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     leftButton.frame = CGRectMake(0, 0, 80, 36);
     [leftButton addTarget:self action:@selector(leftAction) forControlEvents:UIControlEventTouchUpInside];
-    [leftButton setTitle:@"返回" forState:UIControlStateNormal];
+    [leftButton setTitle:@"退出" forState:UIControlStateNormal];
     [leftButton setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
     leftButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
     leftButton.layer.masksToBounds = YES;
@@ -178,6 +199,7 @@
         [_collectionView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     }
 
+
 }
 
 - (void)createBottomView {
@@ -214,9 +236,75 @@
 
     UIButton *updateButton = [self.bottomView viewWithTag:302];
     [updateButton addTarget:self action:@selector(updateAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *shareButton = [self.bottomView viewWithTag:502];
+    [shareButton addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
 
     
 }
+- (void)createRightButton:(BOOL)isRepeal or:(BOOL)isRecover {
+    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftButton.frame = CGRectMake(0, 0, 80, 36);
+    [leftButton addTarget:self action:@selector(repealAction) forControlEvents:UIControlEventTouchUpInside];
+    [leftButton setTitle:@"撤销" forState:UIControlStateNormal];
+//    [leftButton setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
+    leftButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+    leftButton.layer.masksToBounds = YES;
+    leftButton.layer.cornerRadius = 18;
+    leftButton.layer.borderWidth = 1;
+//    leftButton.layer.borderColor = [UIColor colorWithSome:100].CGColor;
+    leftButton.backgroundColor = DefaultBackColor;
+    if (isRepeal) {
+        [leftButton setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
+        leftButton.layer.borderColor = [UIColor colorWithSome:100].CGColor;
+    }else {
+        [leftButton setTitleColor:[UIColor colorWithSome:210] forState:UIControlStateNormal];
+        leftButton.layer.borderColor = [UIColor colorWithSome:210].CGColor;
+    }
+    leftButton.userInteractionEnabled = isRepeal;
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    
+    UIButton *leftButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftButton1.frame = CGRectMake(0, 0, 80, 36);
+    [leftButton1 addTarget:self action:@selector(recoverAction) forControlEvents:UIControlEventTouchUpInside];
+    [leftButton1 setTitle:@"恢复" forState:UIControlStateNormal];
+//    [leftButton1 setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
+    leftButton1.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+    leftButton1.layer.masksToBounds = YES;
+    leftButton1.layer.cornerRadius = 18;
+    leftButton1.layer.borderWidth = 1;
+//    leftButton1.layer.borderColor = [UIColor colorWithSome:100].CGColor;
+    leftButton1.backgroundColor = DefaultBackColor;
+    if (isRecover) {
+        [leftButton1 setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
+        leftButton1.layer.borderColor = [UIColor colorWithSome:100].CGColor;
+    }else {
+        [leftButton1 setTitleColor:[UIColor colorWithSome:210] forState:UIControlStateNormal];
+        leftButton1.layer.borderColor = [UIColor colorWithSome:210].CGColor;
+    }
+    leftButton1.userInteractionEnabled = isRecover;
+    UIBarButtonItem *left1 = [[UIBarButtonItem alloc] initWithCustomView:leftButton1];
+    NSArray *array = @[left1, left];
+    self.navigationItem.rightBarButtonItems = array;
+}
+
+- (void)createSkipButton {
+    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftButton.frame = CGRectMake(0, 0, 80, 36);
+    [leftButton addTarget:self action:@selector(skipAction) forControlEvents:UIControlEventTouchUpInside];
+    [leftButton setTitle:@"跳过" forState:UIControlStateNormal];
+    [leftButton setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
+    leftButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+    leftButton.layer.masksToBounds = YES;
+    leftButton.layer.cornerRadius = 18;
+    leftButton.layer.borderWidth = 1;
+    leftButton.layer.borderColor = [UIColor colorWithSome:100].CGColor;
+    leftButton.backgroundColor = DefaultBackColor;
+    
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    self.navigationItem.rightBarButtonItem = left;
+}
+
 
 #pragma mark - UICollectionViewDatasource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -282,11 +370,21 @@
 #pragma mark - 按钮处理
 // 数字
 - (void)numberAction:(UIButton *)button {
+    
+    [self.deleteArray removeAllObjects];
+    [self createRightButton:YES or:NO];
+    
     NSInteger index = button.tag - 100;
+    if (self.count > 4) {
+        self.count = 0;
+    }
 
     if (self.row == 0) {
         [self lineFeed:index];
         self.row++;
+        self.listModel.row = self.row;
+        [FMDB updateTableList:self.listModel];
+        self.count = 0;
         [self.bottomView setAllButtonWhiter];
         return;
     }
@@ -313,7 +411,7 @@
         [self judgeResidue];
         
         
-        self.count = 0;
+//        self.count = 0;
         [self.bottomView setAllButtonGreen];
         return;
     }
@@ -357,16 +455,26 @@
 // row宽度
 - (void)widthAction {
     itemWidth += 5;
-    if (itemWidth >= 90) {
+    if (itemWidth > 70) {
         itemWidth = 60;
     }
     [self createCollectionView];
-    if ((self.row + 1) * 60 < HBScreenWidth ) {
-        [self.collectionView setContentOffset:CGPointMake(0, 0) animated:NO];
-    }else{
-        [self.collectionView setContentOffset:CGPointMake((self.row + 1)* itemWidth - HBScreenWidth, 0) animated:NO];
-
+    
+    if (self.listModel.skip) {
+        if ((self.row + 0) * itemWidth < HBScreenWidth ) {
+            [self.collectionView setContentOffset:CGPointMake(60, 0) animated:NO];
+        }else{
+            [self.collectionView setContentOffset:CGPointMake((self.row + 1)* itemWidth - HBScreenWidth, 0) animated:NO];
+        }
+    }else {
+        if ((self.row + 1) * itemWidth < HBScreenWidth ) {
+            [self.collectionView setContentOffset:CGPointMake(0, 0) animated:NO];
+        }else{
+            [self.collectionView setContentOffset:CGPointMake((self.row + 1)* itemWidth - HBScreenWidth, 0) animated:NO];
+            
+        }
     }
+   
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshWidth" object:[NSNumber numberWithInteger:itemWidth]];
 }
@@ -394,13 +502,20 @@
 
 // 修改
 - (void)updateAction {
-    self.isUpdate = YES;
+//    self.isUpdate = YES;
     UIView *view = [self.bottomView viewWithTag:300];
     view.hidden = YES;
     
     self.listModel.updateTime = [self getNowTime];
     [FMDB updateTableList:self.listModel];
-    
+    if (self.row == 0 && self.count == 0) {
+        [self createSkipButton];
+
+    }else if (self.row == 1 && self.count == 0) {
+        [self createRightButton:NO or:NO];
+    }else {
+        [self createRightButton:YES or:NO];
+    }
 }
 
 // 返回
@@ -414,35 +529,83 @@
 
 #pragma mark - 数据
 - (void)getData {
-    self.row = 0;
-
-    NSMutableArray *array = [NSMutableArray array];
-    for (int i = 0 ; i < 12; i++) {
-        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@false, @"seleted":@false}];
-
-        [dic setObject:@(0) forKey:@"data"];
-        [array addObject:dic];
+    self.row = self.listModel.row;
+    
+    if (self.row < rowMax) {
+        for (int i = 0; i < rowMax; i++) {
+            NSMutableArray *array = [NSMutableArray array];
+            array = [FMDB selectDetail:i detailId:self.detailId];
+            [self.data addObject:array];
+        }
+    }else {
+        for (int i = 0; i < self.row + 1; i++) {
+            NSMutableArray *array = [NSMutableArray array];
+            array = [FMDB selectDetail:i detailId:self.detailId];
+            [self.data addObject:array];
+        }
     }
     
-    
-    
-    for (int i = 0; i < rowMax; i++) {
-        NSMutableArray *m = [NSMutableArray arrayWithArray:array];
-        [self.data addObject:m];
+    // 按钮
+    [self.bottomView setAllButtonWhiter];
+    self.count = 0;
+    if (self.row == 0) {
+        [self.bottomView setAllButtonGreen];
+        return;
     }
-    
-    
-    NSMutableArray *a = [NSMutableArray array];
-    for (int i = 0 ; i < 12; i++) {
-        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@false}];
-        [a addObject:dic];
+    NSArray *array = [NSArray arrayWithArray:self.data[self.row]];
+    if ([[array[2] objectForKey:@"data"] integerValue] != 0) {
+        self.count ++;
+        [self.bottomView setButtonGray:[[array[2] objectForKey:@"data"] integerValue]];
+        [self.seletedArray addObject:@([[array[2] objectForKey:@"data"] integerValue])];
     }
-    [self.data replaceObjectAtIndex:1 withObject:a];
-    
-    NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@false, @"seleted":@true}];
-    [self.data.firstObject replaceObjectAtIndex:4 withObject:d];
+    if ([[array[3] objectForKey:@"data"] integerValue] != 0) {
+        self.count ++;
+        [self.bottomView setButtonGray:[[array[3] objectForKey:@"data"] integerValue]];
+        [self.seletedArray addObject:@([[array[3] objectForKey:@"data"] integerValue])];
+    }
+    if ([[array[5] objectForKey:@"data"] integerValue] != 0) {
+        self.count ++;
+        [self.bottomView setButtonGray:[[array[5] objectForKey:@"data"] integerValue]];
+        [self.seletedArray addObject:@([[array[5] objectForKey:@"data"] integerValue])];
+    }
+    if ([[array[6] objectForKey:@"data"] integerValue] != 0) {
+        self.count ++;
+        [self.bottomView setButtonGray:[[array[6] objectForKey:@"data"] integerValue]];
+        [self.seletedArray addObject:@([[array[2] objectForKey:@"data"] integerValue])];
+    }
+    if (self.count >= 4) {
+        [self.bottomView setAllButtonGreen];
+        [self.seletedArray removeAllObjects];
+    }
 
     
+//    NSMutableArray *array = [NSMutableArray array];
+//    for (int i = 0 ; i < 12; i++) {
+//        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@false, @"seleted":@false}];
+//
+//        [dic setObject:@(0) forKey:@"data"];
+//        [array addObject:dic];
+//    }
+//
+//
+//
+//    for (int i = 0; i < rowMax; i++) {
+//        NSMutableArray *m = [NSMutableArray arrayWithArray:array];
+//        [self.data addObject:m];
+//    }
+//
+//
+//    NSMutableArray *a = [NSMutableArray array];
+//    for (int i = 0 ; i < 12; i++) {
+//        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@false}];
+//        [a addObject:dic];
+//    }
+//    [self.data replaceObjectAtIndex:1 withObject:a];
+//
+//    NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@false, @"seleted":@true}];
+//    [self.data.firstObject replaceObjectAtIndex:4 withObject:d];
+//
+//
 }
 
 #pragma mark 换行
@@ -456,29 +619,40 @@
         NSMutableDictionary *dic = self.data[self.row][i];
         [dic setObject:@false forKey:@"background"];
         [array addObject:dic];
+        DetailModel *model = [DetailModel initWithDetailId:self.detailId row:i column:self.row mark:[[dic objectForKey:@"mark"] integerValue] data:[[dic objectForKey:@"data"] integerValue] background:[[dic objectForKey:@"background"] integerValue] seleted:[[dic objectForKey:@"seleted"] integerValue]];
+        [FMDB updateDetail:model];
     }
     
+    // 更改当前行背景
     [self.data replaceObjectAtIndex:self.row withObject:array];
-
+//    [FMDB updateDetail:self.row detailId:self.detailId background:0];
     
     NSMutableArray *a = [NSMutableArray array];
     for (int i = 0 ; i < 12; i++) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@false}];
         [a addObject:dic];
     }
-//    [self.data replaceObjectAtIndex:self.row + 1 withObject:a];
+    // 添加或更改下一行背景
     if (self.row < rowMax - 1) {
         [self.data replaceObjectAtIndex:self.row + 1 withObject:a];
-        
+        [FMDB updateDetail:self.row + 1 detailId:self.detailId background:1];
     }else{
         [self.data addObject:a];
+        [FMDB insertDetail:self.row + 1 detailId:self.detailId];
     }
-//    [self.data addObject:a];
+
 
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@true}];
 
+    // 更改中间行
     [self.data[self.row] replaceObjectAtIndex:4 withObject:d];
+    DetailModel *model1 = [DetailModel initWithDetailId:self.detailId row:4 column:self.row mark:0 data:number background:0 seleted:0];
+    [FMDB updateDetail:model1];
+    
+    // 更改下一行 第一排
     [self.data[self.row+ 1] replaceObjectAtIndex:2 withObject:dic];
+    DetailModel *model2 = [DetailModel initWithDetailId:self.detailId row:2 column:self.row + 1 mark:0 data:0 background:1 seleted:1];
+    [FMDB updateDetail:model2];
     [self.collectionView reloadData];
 }
 
@@ -491,9 +665,14 @@
     NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(number), @"background":@true, @"seleted":@false}];
 
     [self.data[self.row] replaceObjectAtIndex:[a[self.count - 1] integerValue] withObject:d];
+    DetailModel *model1 = [DetailModel initWithDetailId:self.detailId row:[a[self.count - 1] integerValue] column:self.row mark:0 data:number background:1 seleted:0];
+    [FMDB updateDetail:model1];
 
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@true}];
     [self.data[self.row] replaceObjectAtIndex:[array[self.count - 1] integerValue] withObject:dic];
+    DetailModel *model2 = [DetailModel initWithDetailId:self.detailId row:[array[self.count - 1] integerValue] column:self.row mark:0 data:0 background:1 seleted:1];
+    [FMDB updateDetail:model2];
+    
     [self.collectionView reloadData];
 
 }
@@ -502,13 +681,14 @@
 // 判断5，6行数字
 - (void)judgeResidue {
     NSMutableArray *array = [NSMutableArray arrayWithArray:@[@(1),@(2),@(3),@(4),@(5),@(6)]];
-    for (NSNumber *number in self.seletedArray) {
-        for (int i = 0; i < array.count; i++) {
-            if([array[i] integerValue] == [number integerValue]){
-                [array removeObject:array[i]];
-            }
-        }
-    }
+//    for (NSNumber *number in self.seletedArray) {
+//        for (int i = 0; i < array.count; i++) {
+//            if([array[i] integerValue] == [number integerValue]){
+//                [array removeObject:array[i]];
+//            }
+//        }
+//    }
+    [array removeObjectsInArray:self.seletedArray];
 //    NSLog(@"剩余数字：%@", array);
     
     // 判断前一row 5，6行数字
@@ -525,10 +705,13 @@
     }
     NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(a), @"background":@true, @"seleted":@false}];
     [self.data[self.row] replaceObjectAtIndex:7 withObject:d];
+    DetailModel *model1 = [DetailModel initWithDetailId:self.detailId row:7 column:self.row mark:0 data:a background:1 seleted:0];
+    [FMDB updateDetail:model1];
         
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(b), @"background":@true, @"seleted":@false}];
     [self.data[self.row] replaceObjectAtIndex:8 withObject:dic];
-    
+    DetailModel *model2 = [DetailModel initWithDetailId:self.detailId row:8 column:self.row mark:0 data:b background:1 seleted:0];
+    [FMDB updateDetail:model2];
     
     //清除已选择数字
     [self.seletedArray removeAllObjects];
@@ -547,13 +730,15 @@
     first = [self getTop:first];
     NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(first), @"background":@false, @"seleted":@false}];
     [self.data[self.row] replaceObjectAtIndex:0 withObject:d];
-    
+    DetailModel *model1 = [DetailModel initWithDetailId:self.detailId row:0 column:self.row mark:0 data:first background:0 seleted:0];
+    [FMDB updateDetail:model1];
     
     NSInteger center = [[self.data[self.row][4] objectForKey:@"data"] integerValue];
     center = [self getTop:center];
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(center), @"background":@false, @"seleted":@false}];
     [self.data[self.row] replaceObjectAtIndex:1 withObject:dic];
-
+    DetailModel *model2 = [DetailModel initWithDetailId:self.detailId row:1 column:self.row mark:0 data:center background:0 seleted:0];
+    [FMDB updateDetail:model2];
 //    NSLog(@"{\nfirst: %ld,\ncenter: %ld}", first, center);
     
 }
@@ -583,17 +768,22 @@
     center = [self getBottom:center];
     NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(center), @"background":@false, @"seleted":@false}];
     [self.data[self.row] replaceObjectAtIndex:9 withObject:d];
+    DetailModel *model1 = [DetailModel initWithDetailId:self.detailId row:9 column:self.row mark:0 data:center background:0 seleted:0];
+    [FMDB updateDetail:model1];
     
     NSInteger first = [[self.data[self.row][2] objectForKey:@"data"] integerValue];
     first = [self getBottom:first];
     NSMutableDictionary *di = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(first), @"background":@false, @"seleted":@false}];
     [self.data[self.row] replaceObjectAtIndex:10 withObject:di];
+    DetailModel *model2 = [DetailModel initWithDetailId:self.detailId row:10 column:self.row mark:0 data:first background:0 seleted:0];
+    [FMDB updateDetail:model2];
     
     NSInteger third = [[self.data[self.row][5] objectForKey:@"data"] integerValue];
     third = [self getBottom:third];
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(third), @"background":@false, @"seleted":@false}];
     [self.data[self.row] replaceObjectAtIndex:11 withObject:dic];
-
+    DetailModel *model3 = [DetailModel initWithDetailId:self.detailId row:11 column:self.row mark:0 data:third background:0 seleted:0];
+    [FMDB updateDetail:model3];
     
 //    NSLog(@"{\ncenter: %ld,\nfirst: %ld,\nthird: %ld}", center, first, third);
 
@@ -633,11 +823,14 @@
 
 #pragma mark - 设置偏移量
 - (void)setContentOffset {
-    if ((self.row + 2) * itemWidth > HBScreenWidth) {
-//        if (self.contentofset == 0) {
-//            self.contentofset = self.row;
-//        }
-        [self.collectionView setContentOffset:CGPointMake((self.row + 2)* itemWidth - HBScreenWidth, 0) animated:NO];
+    if (self.listModel.skip) {
+        if ((self.row + 1) * itemWidth > HBScreenWidth) {
+            [self.collectionView setContentOffset:CGPointMake((self.row + 2)* itemWidth - HBScreenWidth, 0) animated:NO];
+        }
+    }else{
+        if ((self.row + 2) * itemWidth > HBScreenWidth) {
+            [self.collectionView setContentOffset:CGPointMake((self.row + 2)* itemWidth - HBScreenWidth, 0) animated:NO];
+        }
     }
 }
 
@@ -665,6 +858,313 @@
     
 }
 
+
+#pragma mark - 撤销、恢复相关
+// 撤销
+- (void)repealAction {
+    
+    
+    // 恢复按钮状态
+    [self createRightButton:YES or:YES];
+    
+    if (self.count == 0) {
+        
+        [self preLine];
+        return;
+    }
+    NSArray *array = [NSArray arrayWithArray:self.data[self.row]];
+    NSInteger current;
+    switch (self.count) {
+        case 4:{
+            current = [[array[6] objectForKey:@"data"] integerValue];
+            
+            // 按钮状态
+            [self.bottomView setAllButtonWhiter];
+            [self.bottomView setButtonGray:[[array[2] objectForKey:@"data"] integerValue]];
+            [self.bottomView setButtonGray:[[array[3] objectForKey:@"data"] integerValue]];
+            [self.bottomView setButtonGray:[[array[5] objectForKey:@"data"] integerValue]];
+            
+            // 5、6行数据变更
+            NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@false}];
+            
+            [self.data[self.row] replaceObjectAtIndex:7 withObject:d];
+            DetailModel *model1 = [DetailModel initWithDetailId:self.detailId row:7 column:self.row mark:0 data:0 background:1 seleted:0];
+            [FMDB updateDetail:model1];
+            
+            NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@false}];
+            [self.data[self.row] replaceObjectAtIndex:8 withObject:dic];
+            DetailModel *model2 = [DetailModel initWithDetailId:self.detailId row:8 column:self.row mark:0 data:0 background:1 seleted:0];
+            [FMDB updateDetail:model2];
+            
+            break;
+        }
+        case 3:{
+            current = [[array[5] objectForKey:@"data"] integerValue];
+            [self.bottomView setButtonWhiter:current];
+            break;
+        }
+        case 2:{
+            current = [[array[3] objectForKey:@"data"] integerValue];
+            [self.bottomView setButtonWhiter:current];
+            break;
+        }
+        default:{
+            current = [[array[2] objectForKey:@"data"] integerValue];
+            [self.bottomView setButtonWhiter:current];
+            break;
+        }
+    }
+    
+    [self.seletedArray removeObject:@(current)];
+    [self.deleteArray addObject:@(current)];
+    
+    
+    // 数据变更
+    NSArray *a = @[@3, @5, @6, @4];
+    NSArray *b = @[@2, @3, @5, @6];
+    
+    NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@false}];
+    
+    [self.data[self.row] replaceObjectAtIndex:[a[self.count - 1] integerValue] withObject:d];
+    DetailModel *model1 = [DetailModel initWithDetailId:self.detailId row:[a[self.count - 1] integerValue] column:self.row mark:0 data:0 background:1 seleted:0];
+    [FMDB updateDetail:model1];
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@true}];
+    [self.data[self.row] replaceObjectAtIndex:[b[self.count - 1] integerValue] withObject:dic];
+    DetailModel *model2 = [DetailModel initWithDetailId:self.detailId row:[b[self.count - 1] integerValue] column:self.row mark:0 data:0 background:1 seleted:1];
+    [FMDB updateDetail:model2];
+    
+    self.count --;
+    if (self.row == 1 && self.count == 0 ) {
+        [self createRightButton:NO or:YES];
+    }
+    [self.collectionView reloadData];
+    
+}
+
+// 跳转到上一行
+- (void)preLine {
+    NSMutableArray *a = [NSMutableArray array];
+    for (int i = 0 ; i < 12; i++) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@false, @"seleted":@false}];
+        [a addObject:dic];
+    }
+    // 删除或更改本行背景
+    if (self.row < rowMax) {
+        [self.data replaceObjectAtIndex:self.row withObject:a];
+        [FMDB updateDetail:self.row detailId:self.detailId background:0];
+    }else{
+        [self.data removeLastObject];
+        [FMDB deleteDetail:self.row detailId:self.detailId];
+    }
+    
+    // 修改前一行数据 背景
+    NSMutableArray *array = [NSMutableArray array];
+    array = self.data[self.row - 1];
+    for (NSDictionary *dic in array) {
+        [dic setValue:@(1) forKey:@"background"];
+        DetailModel *model = [DetailModel initWithDetailId:self.detailId row:[array indexOfObject:dic] column:self.row-1 mark:0 data:[[dic objectForKey:@"data"] integerValue] background:1 seleted:0];
+        [FMDB updateDetail:model];
+    }
+    NSArray *b = @[@0, @1, @9, @10, @11];
+    for (NSNumber *number in b) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@false}];
+        [array replaceObjectAtIndex:[number integerValue] withObject:dic];
+        DetailModel *model = [DetailModel initWithDetailId:self.detailId row:[number integerValue] column:self.row-1 mark:0 data:0 background:1 seleted:0];
+        [FMDB updateDetail:model];
+    }
+    
+    NSInteger current = [[array[4] objectForKey:@"data"] integerValue];
+    [self.deleteArray addObject:@(current)];
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@true}];
+    [array replaceObjectAtIndex:4 withObject:dic];
+    DetailModel *model = [DetailModel initWithDetailId:self.detailId row:4 column:self.row-1 mark:0 data:0 background:1 seleted:1];
+    [FMDB updateDetail:model];
+    
+    
+    self.row --;
+    self.listModel.row = self.row;
+    [FMDB updateTableList:self.listModel];
+    [self.bottomView setAllButtonGreen];
+    self.count = 4;
+    [self.collectionView reloadData];
+}
+
+
+// 恢复
+- (void)recoverAction {
+    
+    // 撤销按钮状态
+    [self createRightButton:YES or:YES];
+    
+    NSInteger tag = [self.deleteArray.lastObject integerValue];
+    UIButton *button = [self.bottomView viewWithTag:100 + tag];
+    [self recoverData:button];
+    
+    [self.deleteArray removeLastObject];
+    if (self.deleteArray.count == 0) {
+        [self createRightButton:YES or:NO];
+    }
+}
+
+- (void)recoverData:(UIButton *)button {
+    if (self.count > 4) {
+        self.count = 0;
+    }
+    NSInteger index = button.tag - 100;
+    if (self.row == 0) {
+        [self lineFeed:index];
+        self.row++;
+        self.listModel.row = self.row;
+        [FMDB updateTableList:self.listModel];
+        self.count = 0;
+        [self.bottomView setAllButtonWhiter];
+        return;
+    }
+    
+    if (CGColorEqualToColor(button.backgroundColor.CGColor, [UIColor colorWithQuick:220 green:250 blue:220].CGColor)) {
+        [self lineFeed:index];
+        [self getTopData];
+        [self getBottomData];
+        [self setContentOffset];
+        [self setpreRowMark];
+        self.row++;
+        self.listModel.row = self.row;
+        [FMDB updateTableList:self.listModel];
+        self.count = 0;
+        [self.bottomView setAllButtonWhiter];
+        return;
+    }
+    
+    self.count ++;
+    if (self.count >= 4) {
+        [self insertData:index];
+        //判断后5，6行数字
+        [self.seletedArray addObject:@(index)];
+        [self judgeResidue];
+        
+        
+        //        self.count = 0;
+        [self.bottomView setAllButtonGreen];
+        return;
+    }
+    
+    
+    [self insertData:index];
+    
+    [self.seletedArray addObject:@(index)];
+    
+    
+    [self.bottomView setButtonGray:index];
+    
+    
+}
+
+
+#pragma mark - 截图 分享
+- (void)shareAction {
+    
+    // 截屏
+    UIWindow  *window = [UIApplication sharedApplication].keyWindow;
+    
+    UIImage * image = [self captureImageFromView:window];
+    // 图片保存相册
+//    UIImage *image = [UIImage imageNamed:@"cellBack"];
+    UIImageWriteToSavedPhotosAlbum(image,self,@selector(imageSavedToPhotosAlbum: didFinishSavingWithError: contextInfo:),nil);
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"分享当前屏幕" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+    
+    UIAlertAction *weChatOneAction = [UIAlertAction actionWithTitle:@"分享至微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        WXMediaMessage *message = [WXMediaMessage message];
+//        // 设置消息缩略图的方法
+//        //[message setThumbImage:[UIImage imageNamed:@"launch_logo"]];
+//        // 多媒体消息中包含的图片数据对象
+//        WXImageObject *imageObject = [WXImageObject object];
+//
+//        UIImage *image = _shareImage.image;
+//
+//        // 图片真实数据内容
+//
+//        NSData *data = UIImagePNGRepresentation(image);
+//        imageObject.imageData = data;
+//        // 多媒体数据对象，可以为WXImageObject，WXMusicObject，WXVideoObject，WXWebpageObject等。
+//        message.mediaObject = imageObject;
+//
+//        SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+//        req.bText = NO;
+//        req.message = message;
+//        req.scene = WXSceneSession;
+//
+//        [WXApi sendReq:req];
+        
+        
+    }];
+    
+    [alertController addAction:weChatOneAction];
+    [alertController addAction:cancelAction];
+
+//    if ([alertController respondsToSelector:@selector(popoverPresentationController)]) {
+//
+//        alertController.popoverPresentationController.sourceView = self.view; //必须加
+//
+////        alertVC.popoverPresentationController.sourceRect = CGRectMake(0, kScreenHeight, kScreenWidth, kScreenHeight);//可选，我这里加这句代码是为了调整到合适的位置
+//
+//    }
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+// 图片保存后的回调
+- (void)imageSavedToPhotosAlbum:(UIImage*)image didFinishSavingWithError:  (NSError*)error contextInfo:(id)contextInfo
+
+{
+    if(!error) {
+//        [self showHUD:@"成功保存到相册"];
+        
+    }else {
+//        NSString *message = [error description];
+//        [self showHUD:message];
+    }
+    
+}
+
+
+// 截屏
+-(UIImage *)captureImageFromView:(UIView *)view{
+    
+    UIGraphicsBeginImageContextWithOptions(view.frame.size,NO, 0);
+
+    [[UIColor clearColor] setFill];
+
+    [[UIBezierPath bezierPathWithRect:self.view.bounds] fill];
+
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+
+//    [self.view.layer renderInContext:ctx];
+    [self.navigationController.view.layer renderInContext:ctx];
+
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+
+    UIGraphicsEndImageContext();
+    
+    return image;
+    
+}
+
+#pragma mark - 跳过
+- (void)skipAction {
+    self.listModel.skip = 1;
+    [FMDB updateTableList:self.listModel];
+    
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, -60, 0, 0);
+    UIButton *button = [self.bottomView viewWithTag:101];
+    [self recoverData:button];
+
+    [self createRightButton:NO or:NO];
+
+}
 
 
 

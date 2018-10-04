@@ -14,6 +14,9 @@
 @property (strong, nonatomic)UILabel *lableCreate;
 @property (strong, nonatomic)UILabel *lableUpdate;
 @property (strong, nonatomic)UILabel *lableRow;
+@property (strong, nonatomic)UIView *lineView;
+//@property (strong, nonatomic)UIView *lView;
+
 
 
 
@@ -26,17 +29,17 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
+//- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+//    [super setSelected:selected animated:animated];
+//
+//    // Configure the view for the selected state
+//}
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-//        self.backgroundColor = DefaultBackColor;
+        //        self.backgroundColor = DefaultBackColor;
         
         UIImageView *imgView = [UIImageView new];
         imgView.image = [UIImage imageNamed:@"cellBack"];
@@ -87,10 +90,11 @@
             make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-SPACE);
             make.height.mas_equalTo(30);
         }];
-
+        
         //行数
         self.lableRow = [UILabel new];
         self.lableRow.backgroundColor = [UIColor colorWithQuick:10 green:60 blue:170];
+        self.lableRow.highlightedTextColor = [UIColor colorWithSome:255];
         self.lableRow.textColor = [UIColor colorWithSome:255];
         self.lableRow.font = BoldFont(20);
         self.lableRow.textAlignment = NSTextAlignmentCenter;
@@ -108,18 +112,18 @@
         }];
         
         // 分割线
-        UILabel *label = [UILabel new];
-        label.backgroundColor = [UIColor colorWithSome:150];
-        [self.contentView addSubview:label];
-        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.lineView = [UIView new];
+        self.lineView.backgroundColor = [UIColor colorWithSome:150];
+        [self.contentView addSubview:self.lineView];
+        [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.contentView.mas_left);
             make.right.mas_equalTo(self.contentView.mas_right);
             make.bottom.mas_equalTo(self.contentView.mas_bottom);
             make.height.mas_equalTo(1);
         }];
-
         
-
+        
+        
         
         
         
@@ -144,8 +148,8 @@
         NSMutableAttributedString *att  = [[NSMutableAttributedString alloc] initWithString:str attributes:nil];
         [att addAttribute:NSFontAttributeName value:BoldFont(20) range:NSMakeRange(4, 11)];
         [att addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithSome:50] range:NSMakeRange(4, 11)];
-    
-//        self.lableCreate.text   = [cellData objectForKey:@"createTime"];
+        
+        //        self.lableCreate.text   = [cellData objectForKey:@"createTime"];
         self.lableCreate.attributedText = att;
     }
     
@@ -154,12 +158,74 @@
     }
     
     if (![[cellData objectForKey:@"row"] isKindOfClass:[NSNull class]]) {
-        self.lableRow.text   = [[cellData objectForKey:@"row"] description];
+        if ([[cellData objectForKey:@"row"] integerValue] == 0) {
+            self.lableRow.text = @"1";
+        }else {
+            self.lableRow.text   = [[cellData objectForKey:@"row"] description];
+        }
     }
     
 }
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    //    NSLog(@"%@", selected?@"选中":@"未选中");
+    self.lableRow.backgroundColor = [UIColor colorWithQuick:10 green:60 blue:170];
+    self.lineView.backgroundColor = [UIColor colorWithSome:150];
+    
+}
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+    [super setHighlighted:highlighted animated:animated];
+    self.lableRow.backgroundColor = [UIColor colorWithQuick:10 green:60 blue:170];
+    self.lineView.backgroundColor = [UIColor colorWithSome:150];
+    
+}
 
-
+-(void)layoutSubviews{
+    
+    
+    for (UIControl *control in self.subviews){
+        if ([control isMemberOfClass:NSClassFromString(@"UITableViewCellEditControl")]){
+            UIView *v = (UIView *)control;
+            UIView *view = [v viewWithTag:200];
+            if (!view) {
+                view = [UIView new];
+                view.tag = 200;
+                view.backgroundColor = [UIColor colorWithSome:150];
+                [v addSubview:view];
+                [view mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(v.mas_left);
+                    make.right.mas_equalTo(v.mas_right);
+                    make.bottom.mas_equalTo(v.mas_bottom);
+                    make.height.mas_equalTo(1);
+                }];
+            }
+            
+            //                view.center = CGPointMake(0, 0);
+            //                img.frame = CGRectMake(img.frame.origin.x, 100, img.frame.size.width, img.frame.size.height);
+            if (self.selected) {
+                v.layer.contents = (id)[[UIImage imageNamed:@"cellBack"]CGImage];
+                
+                
+                
+                //                    img.image=[UIImage imageNamed:@"cellBack"];
+                
+            }else{
+                v.layer.contents = (id)[[UIImage imageNamed:@"cellBack"]CGImage];
+                
+                //                    img.image=[UIImage imageNamed:@"wcellBack"];
+                
+                
+                
+            }
+            
+        }
+            
+        
+        
+    }
+    [super layoutSubviews];
+    
+}
 
 
 @end

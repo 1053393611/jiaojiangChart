@@ -18,7 +18,8 @@
     model.createTime = [rs stringForColumn:@"createTime"];
     model.updateTime = [rs stringForColumn:@"updateTime"];
     model.row = [rs longForColumn:@"row"];
-    
+    model.skip = [rs longForColumn:@"skip"];
+
     return model;
 }
 
@@ -29,6 +30,8 @@
     [dic setObject:model.createTime forKey:@"createTime"];
     [dic setObject:model.updateTime forKey:@"updateTime"];
     [dic setObject:@(model.row) forKey:@"row"];
+    [dic setObject:@(model.skip) forKey:@"skip"];
+
     return dic;
 }
 

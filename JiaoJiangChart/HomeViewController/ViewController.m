@@ -27,9 +27,18 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.sortType = @"updateTime";
     [self customNavButton];
+    [self customToolButton];
     [self createUITabviewHomePage];
+    // 允许在编辑模式下进行多选操作
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
     
 }
+//-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
+//}
+
+
 
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -79,7 +88,21 @@
     leftButton.layer.borderColor = [UIColor colorWithSome:100].CGColor;
     leftButton.backgroundColor = DefaultBackColor;
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
-    self.navigationItem.leftBarButtonItem = left;
+
+    UIButton *leftButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftButton1.frame = CGRectMake(0, 0, 110, 36);
+    [leftButton1 addTarget:self action:@selector(deleteAction:) forControlEvents:UIControlEventTouchUpInside];
+    [leftButton1 setTitle:@"批量删除" forState:UIControlStateNormal];
+    [leftButton1 setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
+    leftButton1.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+    leftButton1.layer.masksToBounds = YES;
+    leftButton1.layer.cornerRadius = 18;
+    leftButton1.layer.borderWidth = 1;
+    leftButton1.layer.borderColor = [UIColor colorWithSome:100].CGColor;
+    leftButton1.backgroundColor = DefaultBackColor;
+    UIBarButtonItem *left1 = [[UIBarButtonItem alloc] initWithCustomView:leftButton1];
+    NSArray *array = @[left, left1];
+    self.navigationItem.leftBarButtonItems = array;
     
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
     rightButton.frame = CGRectMake(0, 0, 180, 36);
@@ -100,6 +123,44 @@
 
 }
 
+- (void)customToolButton {
+    UIBarButtonItem *addBtn = [[UIBarButtonItem alloc] initWithTitle:@"增加" style:UIBarButtonItemStylePlain target:self action:nil];
+    //设置按钮的位置，词条代码为关键
+    [addBtn setWidth:50];
+    addBtn.customView.center = CGPointMake(0, 500);
+    UIBarButtonItem *delBtn = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:nil];
+    [delBtn setWidth:400];
+    
+    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftButton.frame = CGRectMake(0, 0, 80, 36);
+    [leftButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
+    [leftButton setTitle:@"取消" forState:UIControlStateNormal];
+    [leftButton setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
+    leftButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+    leftButton.layer.masksToBounds = YES;
+    leftButton.layer.cornerRadius = 18;
+    leftButton.layer.borderWidth = 1;
+    leftButton.layer.borderColor = [UIColor colorWithSome:100].CGColor;
+    leftButton.backgroundColor = DefaultBackColor;
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    
+    UIButton *leftButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftButton1.frame = CGRectMake(0, 0, 80, 36);
+    [leftButton1 addTarget:self action:@selector(completeAction) forControlEvents:UIControlEventTouchUpInside];
+    [leftButton1 setTitle:@"完成" forState:UIControlStateNormal];
+    [leftButton1 setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
+    leftButton1.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+    leftButton1.layer.masksToBounds = YES;
+    leftButton1.layer.cornerRadius = 18;
+    leftButton1.layer.borderWidth = 1;
+    leftButton1.layer.borderColor = [UIColor colorWithSome:100].CGColor;
+    leftButton1.backgroundColor = DefaultBackColor;
+    UIBarButtonItem *left1 = [[UIBarButtonItem alloc] initWithCustomView:leftButton1];
+    NSArray *array = @[left, left1];
+    self.toolbarItems = array;
+    
+    
+}
 
 
 #pragma mark - UIcollectionView
@@ -119,17 +180,21 @@
         cell = [[HomeTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:NSStringFromClass([HomeTableViewCell class])];
         
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.cellData = [ListModel dictionaryWithListModel:self.arrChartList[indexPath.row]];
     return cell;
 }
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.tableView.isEditing) {
+        return;
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     ContentViewController *vc = HBALLOCOBJ(ContentViewController);
     vc.listModel = self.arrChartList[indexPath.row];
+    vc.isUpdate = NO;
     [self.navigationController pushViewController:vc animated:YES];
     
 }
@@ -141,23 +206,63 @@
     model.title = @"无备注";
     model.createTime = [self getNowTime];
     model.updateTime = [self getNowTime];
-    model.row = 1;
+    model.row = 0;
+    model.skip = 0;
     [FMDB insertTableList:model];
     
-    for (NSInteger i = 0; i < 20; i++) {
-        [FMDB insertDetail:i detailId:model.listId];
-    }
-    for (NSInteger i = 0; i < 12; i ++) {
-        DetailModel *dModel = [DetailModel initWithDetailId:model.listId row:i column:1 mark:0 data:0 background:1 seleted:0];
-        [FMDB updateDetail:dModel];
-    }
-    DetailModel *dModel = [DetailModel initWithDetailId:model.listId row:4 column:0 mark:0 data:0 background:0 seleted:1];
-    [FMDB updateDetail:dModel];
+//    for (NSInteger i = 0; i < 20; i++) {
+//        [FMDB insertDetail:i detailId:model.listId];
+//    }
+//    for (NSInteger i = 0; i < 12; i ++) {
+//        DetailModel *dModel = [DetailModel initWithDetailId:model.listId row:i column:1 mark:0 data:0 background:1 seleted:0];
+//        [FMDB updateDetail:dModel];
+//    }
+//    DetailModel *dModel = [DetailModel initWithDetailId:model.listId row:4 column:0 mark:0 data:0 background:0 seleted:1];
+//    [FMDB updateDetail:dModel];
+    [FMDB initDetail:model.listId];
     
     ContentViewController *vc = HBALLOCOBJ(ContentViewController);
     vc.listModel = model;
+    vc.isUpdate = YES;
     [self.navigationController pushViewController:vc animated:YES];
 
+    
+}
+
+- (void)deleteAction:(UIButton *)button {
+    [self.tableView setEditing:YES animated:YES];
+    [self.navigationController setToolbarHidden:NO animated:YES];
+    self.navigationItem.rightBarButtonItem.customView.userInteractionEnabled = NO;
+    self.navigationItem.leftBarButtonItem.customView.userInteractionEnabled = NO;
+
+}
+
+- (void)cancelAction {
+    [self.tableView setEditing:NO animated:YES];
+    [self.navigationController setToolbarHidden:YES animated:YES];
+    self.navigationItem.rightBarButtonItem.customView.userInteractionEnabled = YES;
+    self.navigationItem.leftBarButtonItem.customView.userInteractionEnabled = YES;
+
+}
+
+- (void)completeAction {
+    // 获取被选中的行号
+    NSArray *indexPaths = [self.tableView indexPathsForSelectedRows];
+    // 遍历所有的行号
+    NSMutableArray *deleteArray = [NSMutableArray array];
+    for (NSIndexPath *paths in indexPaths) {
+        [deleteArray addObject:self.arrChartList[paths.row]];
+         [FMDB deleteTableList:self.arrChartList[paths.row]];
+    }
+    // 删除被选中的行号模型数据
+    [self.arrChartList removeObjectsInArray:deleteArray];
+    
+    [self.tableView reloadData];
+    
+    [self.tableView setEditing:NO animated:YES];
+    [self.navigationController setToolbarHidden:YES animated:YES];
+    self.navigationItem.rightBarButtonItem.customView.userInteractionEnabled = YES;
+    self.navigationItem.leftBarButtonItem.customView.userInteractionEnabled = YES;
     
 }
 
@@ -278,6 +383,11 @@
     return timeSp;
     
 }
+
+
+
+        
+ 
 
 
 @end

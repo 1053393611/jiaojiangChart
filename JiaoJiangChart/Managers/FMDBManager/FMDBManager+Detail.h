@@ -13,8 +13,17 @@
 // 创建表
 - (BOOL)checkDetailExist:(FMDatabase *)db;
 
+// 初始化20列数据
+- (BOOL)initDetail:(NSString *)detailId;
+
+// 更新一列数据
+- (BOOL)updateDetail:(NSInteger)column detailId:(NSString *)detailId background:(NSInteger)background;
+
 // 插入一列默认数据
 - (BOOL)insertDetail:(NSInteger)column detailId:(NSString *)detailId;
+
+// 删除一列数据
+- (BOOL)deleteDetail:(NSInteger)column detailId:(NSString *)detailId;
 
 // 更新
 - (BOOL)updateDetail:(DetailModel *)model;
