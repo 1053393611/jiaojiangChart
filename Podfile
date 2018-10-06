@@ -10,6 +10,7 @@ target 'JiaoJiangChart' do
   pod 'Masonry'
   pod 'FMDB'
   pod 'MBProgressHUD'
-  
+  pod 'WechatOpenSDK'
+
   
 end

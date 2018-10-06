@@ -1077,27 +1077,27 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
     
     UIAlertAction *weChatOneAction = [UIAlertAction actionWithTitle:@"分享至微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        WXMediaMessage *message = [WXMediaMessage message];
-//        // 设置消息缩略图的方法
-//        //[message setThumbImage:[UIImage imageNamed:@"launch_logo"]];
-//        // 多媒体消息中包含的图片数据对象
-//        WXImageObject *imageObject = [WXImageObject object];
-//
+        WXMediaMessage *message = [WXMediaMessage message];
+        // 设置消息缩略图的方法
+        [message setThumbImage:image];
+        // 多媒体消息中包含的图片数据对象
+        WXImageObject *imageObject = [WXImageObject object];
+
 //        UIImage *image = _shareImage.image;
-//
-//        // 图片真实数据内容
-//
-//        NSData *data = UIImagePNGRepresentation(image);
-//        imageObject.imageData = data;
-//        // 多媒体数据对象，可以为WXImageObject，WXMusicObject，WXVideoObject，WXWebpageObject等。
-//        message.mediaObject = imageObject;
-//
-//        SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
-//        req.bText = NO;
-//        req.message = message;
-//        req.scene = WXSceneSession;
-//
-//        [WXApi sendReq:req];
+
+        // 图片真实数据内容
+
+        NSData *data = UIImagePNGRepresentation(image);
+        imageObject.imageData = data;
+        // 多媒体数据对象，可以为WXImageObject，WXMusicObject，WXVideoObject，WXWebpageObject等。
+        message.mediaObject = imageObject;
+
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = WXSceneSession;
+
+        [WXApi sendReq:req];
         
         
     }];
