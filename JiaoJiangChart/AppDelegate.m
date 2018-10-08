@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "HomeViewController/ViewController.h"
+#import "LoginViewController/LoginViewController.h"
 
 @interface AppDelegate ()
 
@@ -23,6 +25,26 @@
     FMDatabase *db = [FMDatabase databaseWithPath:[FileManager databaseForMasterPath]];
     [FMDB checkBehaviorTableExist:db];
     
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+    
+    BOOL isLogin = [[USERDEFAULT objectForKey:@"isLogin"] boolValue];
+    
+    if ( isLogin ) { // 用户是登录状态
+        ViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle: nil] instantiateViewControllerWithIdentifier:@"ViewController"];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        self.window.rootViewController =  nav;
+        [self getVcodeType];
+    } else { // 用户未登录状态
+        LoginViewController *vc = HBALLOCOBJ(LoginViewController);
+        self.window.rootViewController = vc;
+    }
+
+    
+
+
+
     
     return YES;
 }
@@ -84,6 +106,30 @@
 //    */
 //}
 
+#pragma mark - 获取验证码状态
+
+- (void)getVcodeType {
+    NSString *vcode = [USERDEFAULT objectForKey:@"vcode"];
+    [NetWork getVcodeTypeWithCcode:vcode success:^(NSDictionary *response) {
+        NSLog(@"%@", response);
+        if ([response[@"code"] integerValue] == 0) {
+            
+        }else {
+            LoginViewController *vc = HBALLOCOBJ(LoginViewController);
+            self.window.rootViewController = vc;
+            JCAlertController *alert = [JCAlertController alertWithTitle:@"提示" message:response[@"msg"]];
+            [alert addButtonWithTitle:@"确定" type:JCButtonTypeNormal clicked:nil];
+            [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+            [USERDEFAULT removeObjectForKey:@"isLogin"];
+            [USERDEFAULT removeObjectForKey:@"vcode"];
+        }
+    } failure:^(NSString *message) {
+        NSLog(@"%@", message);
+//        JCAlertController *alert = [JCAlertController alertWithTitle:@"提示" message:message];
+//        [alert addButtonWithTitle:@"确定" type:JCButtonTypeNormal clicked:nil];
+//        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+    }];
+}
 
 
 

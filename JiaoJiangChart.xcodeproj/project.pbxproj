@@ -25,6 +25,8 @@
 		0F115066214B9A5B00490BAD /* UIControl+XIBLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F115064214B9A5B00490BAD /* UIControl+XIBLayer.m */; };
 		0F115067214B9A5B00490BAD /* UIView+XIBLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F115065214B9A5B00490BAD /* UIView+XIBLayer.m */; };
 		0F11506A214BA08500490BAD /* BottomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F115069214BA08500490BAD /* BottomButton.m */; };
+		0F5BCD552169DEB5000CF836 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F5BCD532169DEB5000CF836 /* LoginViewController.m */; };
+		0F5BCD562169DEB5000CF836 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F5BCD542169DEB5000CF836 /* LoginViewController.xib */; };
 		0F901D18214F919100D99DE3 /* ListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D17214F919100D99DE3 /* ListModel.m */; };
 		0F901D1C214F91B000D99DE3 /* DetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D1B214F91B000D99DE3 /* DetailModel.m */; };
 		0F901D2A214F939800D99DE3 /* FMDBManager+Detail.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D21214F939700D99DE3 /* FMDBManager+Detail.m */; };
@@ -32,6 +34,8 @@
 		0F901D2D214F939800D99DE3 /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D24214F939700D99DE3 /* FileManager.m */; };
 		0F901D2E214F939800D99DE3 /* FMDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D25214F939700D99DE3 /* FMDBManager.m */; };
 		0F9CA45E2150FD91005A6A3D /* CustomPopOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9CA45D2150FD91005A6A3D /* CustomPopOverView.m */; };
+		0FE74F052169F5D300C9846A /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE74F042169F5D300C9846A /* NetworkManager.m */; };
+		0FE74F082169F75E00C9846A /* NetworkManager+aboutLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE74F072169F75E00C9846A /* NetworkManager+aboutLogin.m */; };
 		0FF2EE64214A5E0500353E7E /* ItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF2EE62214A5E0500353E7E /* ItemCollectionViewCell.m */; };
 		0FF2EE65214A5E0500353E7E /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FF2EE63214A5E0500353E7E /* ItemCollectionViewCell.xib */; };
 		0FF2EE67214A653D00353E7E /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FF2EE66214A653D00353E7E /* ContentViewController.xib */; };
@@ -93,6 +97,9 @@
 		0F115065214B9A5B00490BAD /* UIView+XIBLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+XIBLayer.m"; sourceTree = "<group>"; };
 		0F115068214BA08500490BAD /* BottomButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomButton.h; sourceTree = "<group>"; };
 		0F115069214BA08500490BAD /* BottomButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomButton.m; sourceTree = "<group>"; };
+		0F5BCD522169DEB5000CF836 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		0F5BCD532169DEB5000CF836 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		0F5BCD542169DEB5000CF836 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		0F901D16214F919100D99DE3 /* ListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListModel.h; sourceTree = "<group>"; };
 		0F901D17214F919100D99DE3 /* ListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListModel.m; sourceTree = "<group>"; };
 		0F901D1A214F91B000D99DE3 /* DetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailModel.h; sourceTree = "<group>"; };
@@ -107,6 +114,10 @@
 		0F901D28214F939700D99DE3 /* FMDBManager+TableList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDBManager+TableList.h"; sourceTree = "<group>"; };
 		0F9CA45C2150FD90005A6A3D /* CustomPopOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPopOverView.h; sourceTree = "<group>"; };
 		0F9CA45D2150FD91005A6A3D /* CustomPopOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPopOverView.m; sourceTree = "<group>"; };
+		0FE74F032169F5D300C9846A /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
+		0FE74F042169F5D300C9846A /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
+		0FE74F062169F75E00C9846A /* NetworkManager+aboutLogin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetworkManager+aboutLogin.h"; sourceTree = "<group>"; };
+		0FE74F072169F75E00C9846A /* NetworkManager+aboutLogin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NetworkManager+aboutLogin.m"; sourceTree = "<group>"; };
 		0FF2EE61214A5E0500353E7E /* ItemCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemCollectionViewCell.h; sourceTree = "<group>"; };
 		0FF2EE62214A5E0500353E7E /* ItemCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItemCollectionViewCell.m; sourceTree = "<group>"; };
 		0FF2EE63214A5E0500353E7E /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -168,9 +179,10 @@
 			isa = PBXGroup;
 			children = (
 				0F901CFE214F86A400D99DE3 /* Managers */,
-				0F0BFF53214A0F4C004C597F /* ContentViewController */,
 				0F0BFF4C214A05FE004C597F /* Catgory */,
+				0F0BFF53214A0F4C004C597F /* ContentViewController */,
 				0F0BFF51214A0685004C597F /* HomeViewController */,
+				0F5BCD512169DE2F000CF836 /* LoginViewController */,
 				0F0BFF1E2149F7C1004C597F /* Assets.xcassets */,
 				0F0BFF152149F7C0004C597F /* AppDelegate.h */,
 				0F0BFF162149F7C0004C597F /* AppDelegate.m */,
@@ -291,9 +303,20 @@
 			path = XIB;
 			sourceTree = "<group>";
 		};
+		0F5BCD512169DE2F000CF836 /* LoginViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0F5BCD522169DEB5000CF836 /* LoginViewController.h */,
+				0F5BCD532169DEB5000CF836 /* LoginViewController.m */,
+				0F5BCD542169DEB5000CF836 /* LoginViewController.xib */,
+			);
+			path = LoginViewController;
+			sourceTree = "<group>";
+		};
 		0F901CFE214F86A400D99DE3 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				0FE74F022169F5D300C9846A /* NetWork */,
 				0F0FB69F2152708A007C7452 /* HUD */,
 				0F901D1D214F939700D99DE3 /* FMDBManager */,
 			);
@@ -331,6 +354,17 @@
 				0F901D24214F939700D99DE3 /* FileManager.m */,
 			);
 			path = FMDBManager;
+			sourceTree = "<group>";
+		};
+		0FE74F022169F5D300C9846A /* NetWork */ = {
+			isa = PBXGroup;
+			children = (
+				0FE74F032169F5D300C9846A /* NetworkManager.h */,
+				0FE74F042169F5D300C9846A /* NetworkManager.m */,
+				0FE74F062169F75E00C9846A /* NetworkManager+aboutLogin.h */,
+				0FE74F072169F75E00C9846A /* NetworkManager+aboutLogin.m */,
+			);
+			path = NetWork;
 			sourceTree = "<group>";
 		};
 		6A75E6FB80E060CA0C17CDF1 /* Pods */ = {
@@ -459,6 +493,7 @@
 				0FF2EE65214A5E0500353E7E /* ItemCollectionViewCell.xib in Resources */,
 				0F0BFF1F2149F7C1004C597F /* Assets.xcassets in Resources */,
 				0F0BFF1D2149F7C0004C597F /* Main.storyboard in Resources */,
+				0F5BCD562169DEB5000CF836 /* LoginViewController.xib in Resources */,
 				0F115060214B99A600490BAD /* BottomView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -516,14 +551,17 @@
 				0F0BFF252149F7C1004C597F /* main.m in Sources */,
 				0F901D2C214F939800D99DE3 /* FMDBManager+TableList.m in Sources */,
 				0F115066214B9A5B00490BAD /* UIControl+XIBLayer.m in Sources */,
+				0F5BCD552169DEB5000CF836 /* LoginViewController.m in Sources */,
 				0F0BFF492149FC87004C597F /* HomeTableViewCell.m in Sources */,
 				0F9CA45E2150FD91005A6A3D /* CustomPopOverView.m in Sources */,
+				0FE74F052169F5D300C9846A /* NetworkManager.m in Sources */,
 				0F0BFF5C214A1C15004C597F /* ContentCollectionViewCell.m in Sources */,
 				0F901D18214F919100D99DE3 /* ListModel.m in Sources */,
 				0F901D2A214F939800D99DE3 /* FMDBManager+Detail.m in Sources */,
 				0F0BFF172149F7C0004C597F /* AppDelegate.m in Sources */,
 				0F11506A214BA08500490BAD /* BottomButton.m in Sources */,
 				0F11505E214B999700490BAD /* BottomView.m in Sources */,
+				0FE74F082169F75E00C9846A /* NetworkManager+aboutLogin.m in Sources */,
 				0F901D2D214F939800D99DE3 /* FileManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

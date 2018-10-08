@@ -77,6 +77,9 @@
     } else if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft || [[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
             itemHeight = HBViewHeight - 70;
     }
+    if (itemHeight == 0) {
+        itemHeight = 628;
+    }
 
     self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;

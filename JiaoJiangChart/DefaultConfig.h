@@ -67,6 +67,7 @@
 
 
 //  网络连接
+
 #define HBNetwork               [AFNetworkReachabilityManager sharedManager]
 #define HBNetConnState          HBNetwork.networkReachabilityStatus
 #define HBNetConnection         ( HBNetConnState < 1 )

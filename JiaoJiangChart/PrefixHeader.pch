@@ -15,10 +15,11 @@
 #import <Masonry.h>
 #import <FMDB.h>
 #import <WXApi.h>
+#import <AFNetworking.h>
 
 #import "DefaultConfig.h"
 #import "UIColor+ReadBank.h"
-
+#import "JCAlertController.h"
 
 #import "ListModel.h"
 #import "DetailModel.h"
@@ -29,6 +30,8 @@
 #import "FMDBManager+Detail.h"
 
 #import "IndicatorManger.h"
+
+#import "NetworkManager+aboutLogin.h"
 
 
 #endif /* PrefixHeader_pch */

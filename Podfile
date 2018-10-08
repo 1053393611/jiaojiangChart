@@ -11,6 +11,8 @@ target 'JiaoJiangChart' do
   pod 'FMDB'
   pod 'MBProgressHUD'
   pod 'WechatOpenSDK'
+  pod 'AFNetworking'
+  pod 'JCAlertController'
 
   
 end
