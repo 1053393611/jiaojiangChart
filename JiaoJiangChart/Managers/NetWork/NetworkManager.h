@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-#define HOSTHOME        @"http://192.168.31.230:8088/huban-admin"
+// 本地
+//#define HOSTHOME        @"http://192.168.31.230:8088/huban-admin"
+// 服务器
+#define HOSTHOME        @"http://47.92.141.218:8080/huban-admin"
+
 #define NetWork     [NetworkManager sharedManager]
 
 /// 网络管理

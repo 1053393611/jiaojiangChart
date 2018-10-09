@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JiaoJiangChart/Managers/NetWork/NetworkManager.m"
-            timestampString = "560600975.888432"
+            timestampString = "560748524.418581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "71"
@@ -26,12 +26,12 @@
                   moduleName = "JiaoJiangChart"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhongcheng/project/jiaojiangChart/JiaoJiangChart/Managers/NetWork/NetworkManager.m"
-                  timestampString = "560681020.900285"
+                  timestampString = "560765090.877292"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "71"
                   endingLineNumber = "71"
-                  offsetFromSymbolStart = "577">
+                  offsetFromSymbolStart = "592">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -41,7 +41,7 @@
                   moduleName = "JiaoJiangChart"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhongcheng/project/jiaojiangChart/JiaoJiangChart/Managers/NetWork/NetworkManager.m"
-                  timestampString = "560681020.903618"
+                  timestampString = "560765090.8788331"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "72"
@@ -56,12 +56,12 @@
                   moduleName = "JiaoJiangChart"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zhongcheng/project/jiaojiangChart/JiaoJiangChart/Managers/NetWork/NetworkManager.m"
-                  timestampString = "560681020.906153"
+                  timestampString = "560765090.880358"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "71"
                   endingLineNumber = "71"
-                  offsetFromSymbolStart = "16">
+                  offsetFromSymbolStart = "20">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -73,7 +73,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JiaoJiangChart/Managers/NetWork/NetworkManager.m"
-            timestampString = "560600975.888563"
+            timestampString = "560748524.41865"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "104"
@@ -89,7 +89,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JiaoJiangChart/Managers/NetWork/NetworkManager.m"
-            timestampString = "560600975.8886499"
+            timestampString = "560748524.418699"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "72"

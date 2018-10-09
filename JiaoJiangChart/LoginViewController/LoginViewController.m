@@ -11,7 +11,7 @@
 #import "sys/utsname.h"
 
 
-@interface LoginViewController ()
+@interface LoginViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 
 @end
@@ -28,7 +28,7 @@
 - (IBAction)sendAction:(UIButton *)sender {
     
     
-    
+    [self.textField endEditing:YES];
     NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
     NSString *version = [[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 //    NSString* deviceName = [[UIDevice currentDevice] systemName];
@@ -163,6 +163,11 @@
 }
 
 
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.textField endEditing:YES];
+    return YES;
+}
 
 
 @end

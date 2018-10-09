@@ -87,6 +87,9 @@
     [self createCollectionView];
     [self createBottomView];
     [self customNavigation];
+//    [GCDQueue executeInGlobalQueue:^{
+//        [self getData];
+//    }];
     [self getData];
 
     
@@ -193,6 +196,8 @@
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.collectionViewLayout = flowLayout;
     self.collectionView.backgroundColor = DefaultBackColor;
+//    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgImage"]];
+//    [self.collectionView setBackgroundView:imgView];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     [self.collectionView registerClass:[ContentCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
@@ -311,10 +316,11 @@
 
 #pragma mark - UICollectionViewDatasource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    if (self.data != nil && self.data.count >= rowMax) {
-        return self.data.count;
-    }
-    return rowMax;
+//    if (self.data != nil && self.data.count >= rowMax) {
+//        return self.data.count;
+//    }
+//    return rowMax;
+    return self.data.count;
 }
 
 
@@ -1080,27 +1086,32 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
     
     UIAlertAction *weChatOneAction = [UIAlertAction actionWithTitle:@"分享至微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        WXMediaMessage *message = [WXMediaMessage message];
-        // 设置消息缩略图的方法
-        [message setThumbImage:image];
-        // 多媒体消息中包含的图片数据对象
-        WXImageObject *imageObject = [WXImageObject object];
-
-//        UIImage *image = _shareImage.image;
-
-        // 图片真实数据内容
-
-        NSData *data = UIImagePNGRepresentation(image);
-        imageObject.imageData = data;
-        // 多媒体数据对象，可以为WXImageObject，WXMusicObject，WXVideoObject，WXWebpageObject等。
-        message.mediaObject = imageObject;
-
-        SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
-        req.bText = NO;
-        req.message = message;
-        req.scene = WXSceneSession;
-
-        [WXApi sendReq:req];
+        
+        if ([WXApi isWXAppInstalled]) {
+            WXMediaMessage *message = [WXMediaMessage message];
+            // 设置消息缩略图的方法
+            [message setThumbImage:image];
+            // 多媒体消息中包含的图片数据对象
+            WXImageObject *imageObject = [WXImageObject object];
+            
+            //        UIImage *image = _shareImage.image;
+            
+            // 图片真实数据内容
+            
+            NSData *data = UIImagePNGRepresentation(image);
+            imageObject.imageData = data;
+            // 多媒体数据对象，可以为WXImageObject，WXMusicObject，WXVideoObject，WXWebpageObject等。
+            message.mediaObject = imageObject;
+            
+            SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+            req.bText = NO;
+            req.message = message;
+            req.scene = WXSceneSession;
+            
+            [WXApi sendReq:req];
+        }else {
+            [Hud showMessage:@"本机未安装微信，请先下载微信"];
+        }
         
         
     }];

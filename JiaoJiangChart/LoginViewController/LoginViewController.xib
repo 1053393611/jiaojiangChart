@@ -35,6 +35,9 @@
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="28"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="Qab-b2-wCd"/>
+                    </connections>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xTs-Oz-hMY">
                     <rect key="frame" x="352" y="408" width="320" height="60"/>
@@ -81,6 +84,6 @@
         </view>
     </objects>
     <resources>
-        <image name="icon" width="512" height="512"/>
+        <image name="icon" width="1024" height="1024"/>
     </resources>
 </document>

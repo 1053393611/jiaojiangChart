@@ -39,6 +39,8 @@
 		0FF2EE64214A5E0500353E7E /* ItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF2EE62214A5E0500353E7E /* ItemCollectionViewCell.m */; };
 		0FF2EE65214A5E0500353E7E /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FF2EE63214A5E0500353E7E /* ItemCollectionViewCell.xib */; };
 		0FF2EE67214A653D00353E7E /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FF2EE66214A653D00353E7E /* ContentViewController.xib */; };
+		0FFE7473216C8789004C16DD /* GCDQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFE746F216C8789004C16DD /* GCDQueue.m */; };
+		0FFE7474216C8789004C16DD /* GCDGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFE7470216C8789004C16DD /* GCDGroup.m */; };
 		2D5559792B92921EF1F31C08 /* libPods-JiaoJiangChart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4086AE3D4F3E5403CB3715 /* libPods-JiaoJiangChart.a */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +124,10 @@
 		0FF2EE62214A5E0500353E7E /* ItemCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItemCollectionViewCell.m; sourceTree = "<group>"; };
 		0FF2EE63214A5E0500353E7E /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		0FF2EE66214A653D00353E7E /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
+		0FFE746F216C8789004C16DD /* GCDQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDQueue.m; sourceTree = "<group>"; };
+		0FFE7470216C8789004C16DD /* GCDGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDGroup.m; sourceTree = "<group>"; };
+		0FFE7471216C8789004C16DD /* GCDQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDQueue.h; sourceTree = "<group>"; };
+		0FFE7472216C8789004C16DD /* GCDGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDGroup.h; sourceTree = "<group>"; };
 		8B1D6859E2630B085660A4BA /* Pods-JiaoJiangChart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JiaoJiangChart.release.xcconfig"; path = "Pods/Target Support Files/Pods-JiaoJiangChart/Pods-JiaoJiangChart.release.xcconfig"; sourceTree = "<group>"; };
 		E50E30B695FD442FD076724D /* Pods-JiaoJiangChart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JiaoJiangChart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JiaoJiangChart/Pods-JiaoJiangChart.debug.xcconfig"; sourceTree = "<group>"; };
 		FD4086AE3D4F3E5403CB3715 /* libPods-JiaoJiangChart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JiaoJiangChart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -344,6 +350,7 @@
 		0F901D1D214F939700D99DE3 /* FMDBManager */ = {
 			isa = PBXGroup;
 			children = (
+				0FFE746E216C8789004C16DD /* GCDQueue */,
 				0F901D1E214F939700D99DE3 /* FMDBManager.h */,
 				0F901D25214F939700D99DE3 /* FMDBManager.m */,
 				0F901D28214F939700D99DE3 /* FMDBManager+TableList.h */,
@@ -365,6 +372,17 @@
 				0FE74F072169F75E00C9846A /* NetworkManager+aboutLogin.m */,
 			);
 			path = NetWork;
+			sourceTree = "<group>";
+		};
+		0FFE746E216C8789004C16DD /* GCDQueue */ = {
+			isa = PBXGroup;
+			children = (
+				0FFE7471216C8789004C16DD /* GCDQueue.h */,
+				0FFE746F216C8789004C16DD /* GCDQueue.m */,
+				0FFE7472216C8789004C16DD /* GCDGroup.h */,
+				0FFE7470216C8789004C16DD /* GCDGroup.m */,
+			);
+			path = GCDQueue;
 			sourceTree = "<group>";
 		};
 		6A75E6FB80E060CA0C17CDF1 /* Pods */ = {
@@ -544,6 +562,7 @@
 				0FF2EE64214A5E0500353E7E /* ItemCollectionViewCell.m in Sources */,
 				0F115067214B9A5B00490BAD /* UIView+XIBLayer.m in Sources */,
 				0F0BFF1A2149F7C0004C597F /* ViewController.m in Sources */,
+				0FFE7474216C8789004C16DD /* GCDGroup.m in Sources */,
 				0F0BFF57214A0FA7004C597F /* ContentViewController.m in Sources */,
 				0F901D2E214F939800D99DE3 /* FMDBManager.m in Sources */,
 				0F901D1C214F91B000D99DE3 /* DetailModel.m in Sources */,
@@ -556,6 +575,7 @@
 				0F9CA45E2150FD91005A6A3D /* CustomPopOverView.m in Sources */,
 				0FE74F052169F5D300C9846A /* NetworkManager.m in Sources */,
 				0F0BFF5C214A1C15004C597F /* ContentCollectionViewCell.m in Sources */,
+				0FFE7473216C8789004C16DD /* GCDQueue.m in Sources */,
 				0F901D18214F919100D99DE3 /* ListModel.m in Sources */,
 				0F901D2A214F939800D99DE3 /* FMDBManager+Detail.m in Sources */,
 				0F0BFF172149F7C0004C597F /* AppDelegate.m in Sources */,

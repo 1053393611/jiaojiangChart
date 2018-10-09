@@ -20,6 +20,8 @@
 #import "DefaultConfig.h"
 #import "UIColor+ReadBank.h"
 #import "JCAlertController.h"
+#import "GCDQueue.h"
+#import "GCDGroup.h"
 
 #import "ListModel.h"
 #import "DetailModel.h"

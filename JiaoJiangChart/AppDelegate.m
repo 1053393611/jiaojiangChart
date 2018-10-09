@@ -20,7 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [WXApi registerApp:@"wxf1a8bb00646468d5" enableMTA:YES];
+    [WXApi registerApp:@"wx18f3534b54aed2c8" enableMTA:YES];
     
     FMDatabase *db = [FMDatabase databaseWithPath:[FileManager databaseForMasterPath]];
     [FMDB checkBehaviorTableExist:db];
