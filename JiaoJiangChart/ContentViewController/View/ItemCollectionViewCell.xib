@@ -90,8 +90,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="background" width="70" height="70"/>
-        <image name="mark" width="46" height="48"/>
-        <image name="pickon" width="75" height="55"/>
+        <image name="background" width="140" height="140"/>
+        <image name="mark" width="92" height="97"/>
+        <image name="pickon" width="150" height="111"/>
     </resources>
 </document>

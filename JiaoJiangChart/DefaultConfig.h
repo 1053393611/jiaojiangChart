@@ -26,7 +26,7 @@
 
 #define SPACE 15
 // 默认创建列数
-#define rowMax 20
+#define rowMax 2
 
 //  应用程序
 #define HBApplication           [UIApplication sharedApplication]

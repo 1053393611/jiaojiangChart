@@ -58,7 +58,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshWidth:) name:@"refreshWidth" object:nil];
     
     
-    NSInteger itemHeight = (self.contentView.bounds.size.height - HeadHeight) / 12;
+    float itemHeight = (self.contentView.bounds.size.height - HeadHeight) / 12.0;
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     // 设置UICollectionView为横向滚动
@@ -78,7 +78,9 @@
     self.collectionView.tag = 500;
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, itemWidth, self.contentView.bounds.size.height) collectionViewLayout:flowLayout];
     self.collectionView.collectionViewLayout = flowLayout;
-    self.collectionView.backgroundColor = DefaultBackColor;
+//    self.collectionView.backgroundColor = DefaultBackColor;
+    self.collectionView.backgroundColor = [UIColor clearColor];
+
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
 //    [self.collectionView registerClass:[ItemCollectionViewCell class] forCellWithReuseIdentifier:@"itemCell"];
@@ -88,6 +90,7 @@
     [self.contentView addSubview:self.collectionView];
     
 }
+
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -111,7 +114,7 @@
         cell = [[ItemCollectionViewCell alloc] init];
         
     }
-//    cell.backgroundColor = [UIColor clearColor];
+    cell.backgroundColor = [UIColor clearColor];
     
     if (indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 5 || indexPath.row == 7 || indexPath.row == 9 || indexPath.row == 10) {
         cell.partLine.hidden = YES;
@@ -205,7 +208,7 @@
 - (void)refreshWidth:(NSNotification *)noti {
     NSLog(@"%@", self.contentView.subviews);
     itemWidth = [[noti object] integerValue];
-    NSInteger itemHeight = (self.contentView.bounds.size.height - HeadHeight) / 12;
+    float itemHeight = (self.contentView.bounds.size.height - HeadHeight) / 12.0;
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     // 设置UICollectionView为横向滚动

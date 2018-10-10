@@ -11,7 +11,6 @@
 #import "BottomView.h"
 
 
-#define rowMax 20
 @interface ContentViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>{
     NSInteger itemHeight;
     NSInteger itemWidth;
@@ -87,16 +86,19 @@
     [self createCollectionView];
     [self createBottomView];
     [self customNavigation];
-//    [GCDQueue executeInGlobalQueue:^{
+//    [self getData];
+//
+//    [GCDQueue executeInHighPriorityGlobalQueue:^{
 //        [self getData];
 //    }];
-    [self getData];
 
     
     if (self.isUpdate) {
         UIView *view = [self.bottomView viewWithTag:300];
         view.hidden = YES;
         [self createSkipButton];
+    }else {
+        [Hud showOperateBegin:@"数据加载中"];
     }
     
     if (self.listModel.skip) {
@@ -104,6 +106,18 @@
 
     }
 
+}
+//- (void)viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:animated];
+//    [GCDQueue executeInGlobalQueue:^{
+//        [self getData];
+//    }];
+//}
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [GCDQueue executeInHighPriorityGlobalQueue:^{
+        [self getData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -196,8 +210,8 @@
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.collectionViewLayout = flowLayout;
     self.collectionView.backgroundColor = DefaultBackColor;
-//    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgImage"]];
-//    [self.collectionView setBackgroundView:imgView];
+    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bgImage"]];
+    [self.collectionView setBackgroundView:imgView];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     [self.collectionView registerClass:[ContentCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
@@ -333,7 +347,7 @@
         cell = [[ContentCollectionViewCell alloc] init];
         
     }
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
     cell.index = indexPath.row;
     cell.currentRow = self.row;
     cell.cellData = self.data[indexPath.row];
@@ -406,7 +420,9 @@
         [self setpreRowMark];
         self.row++;
         self.listModel.row = self.row;
-        [FMDB updateTableList:self.listModel];
+        [GCDQueue executeInGlobalQueue:^{
+            [FMDB updateTableList:self.listModel];
+        }];
         self.count = 0;
         [self.bottomView setAllButtonWhiter];
         return;
@@ -554,11 +570,13 @@
         }
     }
     
+    [GCDQueue executeInMainQueue:^{
     // 按钮
     [self.bottomView setAllButtonWhiter];
     self.count = 0;
     if (self.row == 0) {
         [self.bottomView setAllButtonGreen];
+        [Hud showOperateEnd];
         return;
     }
     NSArray *array = [NSArray arrayWithArray:self.data[self.row]];
@@ -587,7 +605,9 @@
         [self.seletedArray removeAllObjects];
     }
 
-    
+        [self.collectionView reloadData];
+        [Hud showOperateEnd];
+    }];
 //    NSMutableArray *array = [NSMutableArray array];
 //    for (int i = 0 ; i < 12; i++) {
 //        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@false, @"seleted":@false}];
@@ -740,14 +760,18 @@
     NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(first), @"background":@false, @"seleted":@false}];
     [self.data[self.row] replaceObjectAtIndex:0 withObject:d];
     DetailModel *model1 = [DetailModel initWithDetailId:self.detailId row:0 column:self.row mark:0 data:first background:0 seleted:0];
-    [FMDB updateDetail:model1];
+    [GCDQueue executeInGlobalQueue:^{
+        [FMDB updateDetail:model1];
+    }];
     
     NSInteger center = [[self.data[self.row][4] objectForKey:@"data"] integerValue];
     center = [self getTop:center];
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(center), @"background":@false, @"seleted":@false}];
     [self.data[self.row] replaceObjectAtIndex:1 withObject:dic];
     DetailModel *model2 = [DetailModel initWithDetailId:self.detailId row:1 column:self.row mark:0 data:center background:0 seleted:0];
-    [FMDB updateDetail:model2];
+    [GCDQueue executeInGlobalQueue:^{
+        [FMDB updateDetail:model2];
+    }];
 //    NSLog(@"{\nfirst: %ld,\ncenter: %ld}", first, center);
     
 }
@@ -778,21 +802,27 @@
     NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(center), @"background":@false, @"seleted":@false}];
     [self.data[self.row] replaceObjectAtIndex:9 withObject:d];
     DetailModel *model1 = [DetailModel initWithDetailId:self.detailId row:9 column:self.row mark:0 data:center background:0 seleted:0];
-    [FMDB updateDetail:model1];
+    [GCDQueue executeInGlobalQueue:^{
+        [FMDB updateDetail:model1];
+    }];
     
     NSInteger first = [[self.data[self.row][2] objectForKey:@"data"] integerValue];
     first = [self getBottom:first];
     NSMutableDictionary *di = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(first), @"background":@false, @"seleted":@false}];
     [self.data[self.row] replaceObjectAtIndex:10 withObject:di];
     DetailModel *model2 = [DetailModel initWithDetailId:self.detailId row:10 column:self.row mark:0 data:first background:0 seleted:0];
-    [FMDB updateDetail:model2];
+    [GCDQueue executeInGlobalQueue:^{
+        [FMDB updateDetail:model2];
+    }];
     
     NSInteger third = [[self.data[self.row][5] objectForKey:@"data"] integerValue];
     third = [self getBottom:third];
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(third), @"background":@false, @"seleted":@false}];
     [self.data[self.row] replaceObjectAtIndex:11 withObject:dic];
     DetailModel *model3 = [DetailModel initWithDetailId:self.detailId row:11 column:self.row mark:0 data:third background:0 seleted:0];
-    [FMDB updateDetail:model3];
+    [GCDQueue executeInGlobalQueue:^{
+        [FMDB updateDetail:model3];
+    }];
     
 //    NSLog(@"{\ncenter: %ld,\nfirst: %ld,\nthird: %ld}", center, first, third);
 
@@ -892,6 +922,11 @@
             [self.bottomView setButtonGray:[[array[2] objectForKey:@"data"] integerValue]];
             [self.bottomView setButtonGray:[[array[3] objectForKey:@"data"] integerValue]];
             [self.bottomView setButtonGray:[[array[5] objectForKey:@"data"] integerValue]];
+            
+            // 已用数字
+            [self.seletedArray addObject:[array[2] objectForKey:@"data"]];
+            [self.seletedArray addObject:[array[3] objectForKey:@"data"]];
+            [self.seletedArray addObject:[array[5] objectForKey:@"data"]];
             
             // 5、6行数据变更
             NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@false}];
@@ -1088,27 +1123,37 @@
     UIAlertAction *weChatOneAction = [UIAlertAction actionWithTitle:@"分享至微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         if ([WXApi isWXAppInstalled]) {
+//            [WXApi openWXApp];
             WXMediaMessage *message = [WXMediaMessage message];
             // 设置消息缩略图的方法
-            [message setThumbImage:image];
+            CGSize size = CGSizeMake(100, 100);
+            UIGraphicsBeginImageContext(size);
+            [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+            UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            [message setThumbImage:resultImage];
             // 多媒体消息中包含的图片数据对象
             WXImageObject *imageObject = [WXImageObject object];
-            
+
             //        UIImage *image = _shareImage.image;
-            
+
             // 图片真实数据内容
-            
+
             NSData *data = UIImagePNGRepresentation(image);
             imageObject.imageData = data;
             // 多媒体数据对象，可以为WXImageObject，WXMusicObject，WXVideoObject，WXWebpageObject等。
             message.mediaObject = imageObject;
-            
+
             SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
             req.bText = NO;
             req.message = message;
             req.scene = WXSceneSession;
+
+//            [WXApi sendReq:req];
+            [GCDQueue executeInMainQueue:^{
+                [WXApi sendReq:req];
+            }];
             
-            [WXApi sendReq:req];
         }else {
             [Hud showMessage:@"本机未安装微信，请先下载微信"];
         }
@@ -1180,6 +1225,87 @@
 
 }
 
+- (void)wechat:(UIImage *)image {
+    NSLog(@"%@",image);
+//    WXMediaMessage *message = [WXMediaMessage message];
+//    // 设置消息缩略图的方法
+//    [message setThumbImage:image];
+//    // 多媒体消息中包含的图片数据对象
+    WXImageObject *imageObject = [WXImageObject object];
+//
+////    UIImage *image = [UIImage imageNamed:@"要分享的图片名"];
+//
+//
+//    // 图片真实数据内容
+//
+    NSData *data = UIImagePNGRepresentation(image);
+    imageObject.imageData = data;
+    // 多媒体数据对象，可以为WXImageObject，WXMusicObject，WXVideoObject，WXWebpageObject等。
+//    message.mediaObject = imageObject;
+//
+//    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+//    req.bText = NO;
+//    req.message = message;
+//    req.scene = WXSceneSession;// 分享到朋友圈
+//    [WXApi sendReq:req];
+//    NSData *data1 = UIImageJPEGRepresentation(image, 0.1);
+//    UIImage *resultImage = [UIImage imageWithData:data1];
+    CGSize size = CGSizeMake(100, 100);
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
 
+    WXMediaMessage *message = [self messageWithTitle:nil
+                                                   Description:nil
+                                                        Object:imageObject
+                                                    MessageExt:@"这是第三方带的测试字段"
+                                                 MessageAction:@"<action>dotalist</action>"
+                                                    ThumbImage:resultImage
+                                                      MediaTag:@"WECHAT_TAG_JUMP_APP"];
+    
+    SendMessageToWXReq* req = [self requestWithText:nil
+                                                   OrMediaMessage:message
+                                                            bText:NO
+                                                          InScene:WXSceneSession];
+    
+    [WXApi sendReq:req];
+    NSLog(@"分享%d", [WXApi sendReq:req]);
+}
+
+- (WXMediaMessage *)messageWithTitle:(NSString *)title
+                         Description:(NSString *)description
+                              Object:(id)mediaObject
+                          MessageExt:(NSString *)messageExt
+                       MessageAction:(NSString *)action
+                          ThumbImage:(UIImage *)thumbImage
+                            MediaTag:(NSString *)tagName {
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = title;
+    message.description = description;
+    message.mediaObject = mediaObject;
+    message.messageExt = messageExt;
+    message.messageAction = action;
+    message.mediaTagName = tagName;
+    [message setThumbImage:thumbImage];
+    return message;
+}
+
+- (SendMessageToWXReq *)requestWithText:(NSString *)text
+                         OrMediaMessage:(WXMediaMessage *)message
+                                  bText:(BOOL)bText
+                                InScene:(enum WXScene)scene {
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+    req.bText = bText;
+    req.scene = scene;
+//    if (req.scene == WXSceneSpecifiedSession) {
+//        req.toUserOpenId = @"oyAaTjoAesTaqxEm8pm2FQ4UZMkM";
+//    }
+    if (bText)
+        req.text = text;
+    else
+        req.message = message;
+    return req;
+}
 
 @end

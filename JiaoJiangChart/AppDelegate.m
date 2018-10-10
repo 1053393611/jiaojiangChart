@@ -10,7 +10,7 @@
 #import "HomeViewController/ViewController.h"
 #import "LoginViewController/LoginViewController.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<WXApiDelegate>
 
 @end
 
@@ -76,35 +76,35 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-//-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-//
-//    return [WXApi handleOpenURL:url delegate:self];
-//}
-//
-//-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-//
-//    return [WXApi handleOpenURL:url delegate:self];
-//}
-//
-////从微信分享过后点击返回应用的时候调用
-//- (void)onResp:(BaseResp *)resp {
-//
-//    //把返回的类型转换成与发送时相对于的返回类型,这里为SendMessageToWXResp
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+//从微信分享过后点击返回应用的时候调用
+- (void)onResp:(BaseResp *)resp {
+
+    //把返回的类型转换成与发送时相对于的返回类型,这里为SendMessageToWXResp
 //    SendMessageToWXResp *sendResp = (SendMessageToWXResp *)resp;
 //
 //    //使用UIAlertView 显示回调信息
 //    NSString *str = [NSString stringWithFormat:@"%d",sendResp.errCode];
 //    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"回调信息" message:str delegate:self cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
 //    [alertview show];
-//    /*
-//    WXSuccess           = 0,     成功
-//    WXErrCodeCommon     = -1,    普通错误类型
-//    WXErrCodeUserCancel = -2,    用户点击取消并返回
-//    WXErrCodeSentFail   = -3,    发送失败
-//    WXErrCodeAuthDeny   = -4,    授权失败
-//    WXErrCodeUnsupport  = -5,    微信不支持
-//    */
-//}
+    /*
+    WXSuccess           = 0,     成功
+    WXErrCodeCommon     = -1,    普通错误类型
+    WXErrCodeUserCancel = -2,    用户点击取消并返回
+    WXErrCodeSentFail   = -3,    发送失败
+    WXErrCodeAuthDeny   = -4,    授权失败
+    WXErrCodeUnsupport  = -5,    微信不支持
+    */
+}
 
 #pragma mark - 获取验证码状态
 

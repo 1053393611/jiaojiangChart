@@ -21,10 +21,22 @@
 
 - (BOOL)initDetail:(NSString *)detailId{
     __block BOOL result = NO;
-    for (int j = 0; j < 20; j++) {
+    NSInteger seleted = 0;
+    NSInteger background = 0;
+    for (int j = 0; j < 2; j++) {
         for (int i = 0; i < 12; i ++) {
+            if (j == 0 && i == 4) {
+                seleted = 1;
+            }else{
+                seleted = 0;
+            }
+            if (j == 1) {
+                background = 1;
+            }else {
+                background = 0;
+            }
             [self.master inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                NSString *sql = [NSString stringWithFormat:@"insert into tbl_Detail (detailId,row,column,mark,data,background,seleted) values ('%@',%d,%d,0,0,0,0)", detailId, i, j];
+                NSString *sql = [NSString stringWithFormat:@"insert into tbl_Detail (detailId,row,column,mark,data,background,seleted) values ('%@',%d,%d,0,0,%ld,%ld)", detailId, i, j, background, seleted];
                 
                 BOOL result = [db executeUpdate:sql];
                 if ( !result ) {
@@ -34,9 +46,9 @@
         }
     }
     
-    result = [self updateDetail:1 detailId:detailId background:1] && result;
-    DetailModel *model = [DetailModel initWithDetailId:detailId row:4 column:0 mark:0 data:0 background:0 seleted:1];
-    result = [self updateDetail:model] && result;
+//    result = [self updateDetail:1 detailId:detailId background:1] && result;
+//    DetailModel *model = [DetailModel initWithDetailId:detailId row:4 column:0 mark:0 data:0 background:0 seleted:1];
+//    result = [self updateDetail:model] && result;
     
     return result;
 }

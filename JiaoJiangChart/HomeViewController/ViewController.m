@@ -191,7 +191,6 @@
         return;
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     ContentViewController *vc = HBALLOCOBJ(ContentViewController);
     vc.listModel = self.arrChartList[indexPath.row];
     vc.isUpdate = NO;
@@ -219,10 +218,8 @@
 //    }
 //    DetailModel *dModel = [DetailModel initWithDetailId:model.listId row:4 column:0 mark:0 data:0 background:0 seleted:1];
 //    [FMDB updateDetail:dModel];
-//    [GCDQueue executeInGlobalQueue:^{
-        [FMDB initDetail:model.listId];
-        
-//    }];
+    [FMDB initDetail:model.listId];
+    
     
     ContentViewController *vc = HBALLOCOBJ(ContentViewController);
     vc.listModel = model;

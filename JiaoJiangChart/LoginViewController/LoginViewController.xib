@@ -60,10 +60,10 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="J4z-LM-yC1">
-                    <rect key="frame" x="412" y="108" width="200" height="200"/>
+                    <rect key="frame" x="422" y="96" width="180" height="180"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="200" id="bIW-aX-Tjy"/>
-                        <constraint firstAttribute="width" constant="200" id="d5I-M7-lZm"/>
+                        <constraint firstAttribute="height" constant="180" id="bIW-aX-Tjy"/>
+                        <constraint firstAttribute="width" constant="180" id="d5I-M7-lZm"/>
                     </constraints>
                 </imageView>
             </subviews>
@@ -77,7 +77,7 @@
                 <constraint firstItem="35X-lJ-2zW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Swy-pT-5Ly"/>
                 <constraint firstItem="xTs-Oz-hMY" firstAttribute="trailing" secondItem="35X-lJ-2zW" secondAttribute="trailing" id="ZQY-rO-Fmf"/>
                 <constraint firstItem="35X-lJ-2zW" firstAttribute="top" secondItem="bET-Ji-hwL" secondAttribute="bottom" constant="32" id="goe-ux-6HU"/>
-                <constraint firstItem="35X-lJ-2zW" firstAttribute="top" secondItem="J4z-LM-yC1" secondAttribute="bottom" constant="8" id="lSN-Jf-21g"/>
+                <constraint firstItem="35X-lJ-2zW" firstAttribute="top" secondItem="J4z-LM-yC1" secondAttribute="bottom" constant="40" id="lSN-Jf-21g"/>
                 <constraint firstItem="xTs-Oz-hMY" firstAttribute="top" secondItem="35X-lJ-2zW" secondAttribute="bottom" constant="32" id="nGN-Q9-G5Q"/>
             </constraints>
             <point key="canvasLocation" x="130.46875" y="104.8828125"/>
