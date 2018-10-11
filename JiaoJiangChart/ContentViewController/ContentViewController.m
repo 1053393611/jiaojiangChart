@@ -52,46 +52,46 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = DefaultBackColor;
-//    self.contentofset = 0;
+    //    self.contentofset = 0;
     self.isMark = NO;
-//    self.isUpdate = NO;
+    //    self.isUpdate = NO;
     itemWidth = 60;
-//    self.count = 0;
+    //    self.count = 0;
     self.detailId = self.listModel.listId;
-   
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doRotateAction:) name:UIDeviceOrientationDidChangeNotification object:nil];
     
-//    itemHeight = HBViewHeight;
-//        NSLog(@"宽：%f, 高：%f, %f, %f", HBScreenWidth, HBScreenHeight, HBViewHeight, HBLandscapeViewHeight);
+    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(doRotateAction:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+    //    itemHeight = HBViewHeight;
+    //        NSLog(@"宽：%f, 高：%f, %f, %f", HBScreenWidth, HBScreenHeight, HBViewHeight, HBLandscapeViewHeight);
     
     
     self.data = [NSMutableArray array];
     self.seletedArray = [NSMutableArray array];
     self.deleteArray = [NSMutableArray array];
-//    [self getData];
+    //    [self getData];
     
     if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait || [[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown) {
-            itemHeight = HBLandscapeViewHeight - 70;
+        itemHeight = HBLandscapeViewHeight - 70;
         
     } else if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft || [[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
-            itemHeight = HBViewHeight - 70;
+        itemHeight = HBViewHeight - 70;
     }
     if (itemHeight == 0) {
         itemHeight = 628;
     }
-
+    
     self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-
+    
     [self createCollectionView];
     [self createBottomView];
     [self customNavigation];
-//    [self getData];
-//
-//    [GCDQueue executeInHighPriorityGlobalQueue:^{
-//        [self getData];
-//    }];
-
+    //    [self getData];
+    //
+    //    [GCDQueue executeInHighPriorityGlobalQueue:^{
+    //        [self getData];
+    //    }];
+    
     
     if (self.isUpdate) {
         UIView *view = [self.bottomView viewWithTag:300];
@@ -103,9 +103,10 @@
     
     if (self.listModel.skip) {
         self.collectionView.contentInset = UIEdgeInsetsMake(0, -60, 0, 0);
-
+        
     }
-
+    
+    
 }
 //- (void)viewWillAppear:(BOOL)animated{
 //    [super viewWillAppear:animated];
@@ -115,7 +116,9 @@
 //}
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [GCDQueue executeInHighPriorityGlobalQueue:^{
+    HBWeakSelf(self);
+    [GCDQueue executeInGlobalQueue:^{
+        HBStrongSelf(self);
         [self getData];
     }];
 }
@@ -124,7 +127,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
     
-
+    
 }
 
 //- (void)doRotateAction:(NSNotification *)notification {
@@ -181,7 +184,7 @@
     [view addSubview:label];
     
     self.navigationItem.titleView = view;
-
+    
 }
 
 
@@ -203,7 +206,7 @@
     //    flowLayout.minimumInteritemSpacing = 1;// 根据需要编写
     flowLayout.itemSize = CGSizeMake(itemWidth, itemHeight);// 该行代码就算不写,item也会有默认尺寸
     
-//    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, HBViewHeight, HBScreenWidth) collectionViewLayout:flowLayout];
+    //    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, HBViewHeight, HBScreenWidth) collectionViewLayout:flowLayout];
     
     
     self.collectionHeight.constant = itemHeight;
@@ -215,13 +218,13 @@
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     [self.collectionView registerClass:[ContentCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
-//    [self.view addSubview:self.collectionView];
+    //    [self.view addSubview:self.collectionView];
     self.collectionView.bounces = NO;
     if (@available(iOS 11.0, *)) {
         [_collectionView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
     }
-
-
+    
+    
 }
 
 - (void)createBottomView {
@@ -229,7 +232,7 @@
     
     self.bottomView = [[NSBundle mainBundle] loadNibNamed:@"BottomView" owner:self options:nil].firstObject;
     
-//    self.bottomView.frame = CGRectMake(0, itemHeight, HBScreenWidth, 50);
+    //    self.bottomView.frame = CGRectMake(0, itemHeight, HBScreenWidth, 50);
     
     [self.view addSubview:self.bottomView];
     
@@ -255,13 +258,13 @@
     
     UIButton *deleteButton = [self.bottomView viewWithTag:301];
     [deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
-
+    
     UIButton *updateButton = [self.bottomView viewWithTag:302];
     [updateButton addTarget:self action:@selector(updateAction) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *shareButton = [self.bottomView viewWithTag:502];
     [shareButton addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
-
+    
     
 }
 - (void)createRightButton:(BOOL)isRepeal or:(BOOL)isRecover {
@@ -269,12 +272,12 @@
     leftButton.frame = CGRectMake(0, 0, 80, 36);
     [leftButton addTarget:self action:@selector(repealAction) forControlEvents:UIControlEventTouchUpInside];
     [leftButton setTitle:@"撤销" forState:UIControlStateNormal];
-//    [leftButton setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
+    //    [leftButton setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
     leftButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
     leftButton.layer.masksToBounds = YES;
     leftButton.layer.cornerRadius = 18;
     leftButton.layer.borderWidth = 1;
-//    leftButton.layer.borderColor = [UIColor colorWithSome:100].CGColor;
+    //    leftButton.layer.borderColor = [UIColor colorWithSome:100].CGColor;
     leftButton.backgroundColor = DefaultBackColor;
     if (isRepeal) {
         [leftButton setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
@@ -290,12 +293,12 @@
     leftButton1.frame = CGRectMake(0, 0, 80, 36);
     [leftButton1 addTarget:self action:@selector(recoverAction) forControlEvents:UIControlEventTouchUpInside];
     [leftButton1 setTitle:@"恢复" forState:UIControlStateNormal];
-//    [leftButton1 setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
+    //    [leftButton1 setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
     leftButton1.titleLabel.font = [UIFont boldSystemFontOfSize:17];
     leftButton1.layer.masksToBounds = YES;
     leftButton1.layer.cornerRadius = 18;
     leftButton1.layer.borderWidth = 1;
-//    leftButton1.layer.borderColor = [UIColor colorWithSome:100].CGColor;
+    //    leftButton1.layer.borderColor = [UIColor colorWithSome:100].CGColor;
     leftButton1.backgroundColor = DefaultBackColor;
     if (isRecover) {
         [leftButton1 setTitleColor:[UIColor colorWithSome:0] forState:UIControlStateNormal];
@@ -330,10 +333,10 @@
 
 #pragma mark - UICollectionViewDatasource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-//    if (self.data != nil && self.data.count >= rowMax) {
-//        return self.data.count;
-//    }
-//    return rowMax;
+    //    if (self.data != nil && self.data.count >= rowMax) {
+    //        return self.data.count;
+    //    }
+    //    return rowMax;
     return self.data.count;
 }
 
@@ -384,7 +387,7 @@
     [self presentViewController:alt animated:YES completion:^{
         
     }];
-
+    
     
 }
 
@@ -401,7 +404,7 @@
     if (self.count > 4) {
         self.count = 0;
     }
-
+    
     if (self.row == 0) {
         [self lineFeed:index];
         self.row++;
@@ -436,12 +439,12 @@
         [self judgeResidue];
         
         
-//        self.count = 0;
+        //        self.count = 0;
         [self.bottomView setAllButtonGreen];
         return;
     }
-
-
+    
+    
     [self insertData:index];
     
     [self.seletedArray addObject:@(index)];
@@ -499,7 +502,7 @@
             
         }
     }
-   
+    
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshWidth" object:[NSNumber numberWithInteger:itemWidth]];
 }
@@ -511,7 +514,7 @@
     UIAlertAction *act1=[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [FMDB deleteTableList:self.listModel];
         [self.navigationController popViewControllerAnimated:YES];
-
+        
     }];
     UIAlertAction *act2=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
@@ -521,13 +524,13 @@
     [self presentViewController:controller animated:YES completion:^{
         
     }];
-
+    
 }
 
 
 // 修改
 - (void)updateAction {
-//    self.isUpdate = YES;
+    //    self.isUpdate = YES;
     UIView *view = [self.bottomView viewWithTag:300];
     view.hidden = YES;
     
@@ -535,11 +538,19 @@
     [FMDB updateTableList:self.listModel];
     if (self.row == 0 && self.count == 0) {
         [self createSkipButton];
-
-    }else if (self.row == 1 && self.count == 0) {
-        [self createRightButton:NO or:NO];
+        
+//    }else if (self.row == 1 && self.count == 0) {
+//        [self createRightButton:NO or:NO];
     }else {
-        [self createRightButton:YES or:NO];
+        if (self.listModel.skip) {
+            if (self.row == 1 && self.count == 0) {
+                [self createRightButton:NO or:NO];
+            }else {
+                [self createRightButton:YES or:NO];
+            }
+        }else{
+            [self createRightButton:YES or:NO];
+        }
     }
 }
 
@@ -569,72 +580,76 @@
             [self.data addObject:array];
         }
     }
-    
+    HBWeakSelf(self);
     [GCDQueue executeInMainQueue:^{
-    // 按钮
-    [self.bottomView setAllButtonWhiter];
-    self.count = 0;
-    if (self.row == 0) {
-        [self.bottomView setAllButtonGreen];
-        [Hud showOperateEnd];
-        return;
-    }
-    NSArray *array = [NSArray arrayWithArray:self.data[self.row]];
-    if ([[array[2] objectForKey:@"data"] integerValue] != 0) {
-        self.count ++;
-        [self.bottomView setButtonGray:[[array[2] objectForKey:@"data"] integerValue]];
-        [self.seletedArray addObject:@([[array[2] objectForKey:@"data"] integerValue])];
-    }
-    if ([[array[3] objectForKey:@"data"] integerValue] != 0) {
-        self.count ++;
-        [self.bottomView setButtonGray:[[array[3] objectForKey:@"data"] integerValue]];
-        [self.seletedArray addObject:@([[array[3] objectForKey:@"data"] integerValue])];
-    }
-    if ([[array[5] objectForKey:@"data"] integerValue] != 0) {
-        self.count ++;
-        [self.bottomView setButtonGray:[[array[5] objectForKey:@"data"] integerValue]];
-        [self.seletedArray addObject:@([[array[5] objectForKey:@"data"] integerValue])];
-    }
-    if ([[array[6] objectForKey:@"data"] integerValue] != 0) {
-        self.count ++;
-        [self.bottomView setButtonGray:[[array[6] objectForKey:@"data"] integerValue]];
-        [self.seletedArray addObject:@([[array[2] objectForKey:@"data"] integerValue])];
-    }
-    if (self.count >= 4) {
-        [self.bottomView setAllButtonGreen];
-        [self.seletedArray removeAllObjects];
-    }
-
+        HBStrongSelf(self);
+        // 按钮
+        [self.bottomView setAllButtonWhiter];
+        self.count = 0;
+        if (self.row == 0) {
+            [self.bottomView setAllButtonGreen];
+            
+            [self.collectionView reloadData];
+            [Hud showOperateEnd];
+            return;
+        }
+        NSArray *array = [NSArray arrayWithArray:self.data[self.row]];
+        if ([[array[2] objectForKey:@"data"] integerValue] != 0) {
+            self.count ++;
+            [self.bottomView setButtonGray:[[array[2] objectForKey:@"data"] integerValue]];
+            [self.seletedArray addObject:@([[array[2] objectForKey:@"data"] integerValue])];
+        }
+        if ([[array[3] objectForKey:@"data"] integerValue] != 0) {
+            self.count ++;
+            [self.bottomView setButtonGray:[[array[3] objectForKey:@"data"] integerValue]];
+            [self.seletedArray addObject:@([[array[3] objectForKey:@"data"] integerValue])];
+        }
+        if ([[array[5] objectForKey:@"data"] integerValue] != 0) {
+            self.count ++;
+            [self.bottomView setButtonGray:[[array[5] objectForKey:@"data"] integerValue]];
+            [self.seletedArray addObject:@([[array[5] objectForKey:@"data"] integerValue])];
+        }
+        if ([[array[6] objectForKey:@"data"] integerValue] != 0) {
+            self.count ++;
+            [self.bottomView setButtonGray:[[array[6] objectForKey:@"data"] integerValue]];
+            [self.seletedArray addObject:@([[array[2] objectForKey:@"data"] integerValue])];
+        }
+        if (self.count >= 4) {
+            [self.bottomView setAllButtonGreen];
+            [self.seletedArray removeAllObjects];
+        }
+        
+        
         [self.collectionView reloadData];
         [Hud showOperateEnd];
     }];
-//    NSMutableArray *array = [NSMutableArray array];
-//    for (int i = 0 ; i < 12; i++) {
-//        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@false, @"seleted":@false}];
-//
-//        [dic setObject:@(0) forKey:@"data"];
-//        [array addObject:dic];
-//    }
-//
-//
-//
-//    for (int i = 0; i < rowMax; i++) {
-//        NSMutableArray *m = [NSMutableArray arrayWithArray:array];
-//        [self.data addObject:m];
-//    }
-//
-//
-//    NSMutableArray *a = [NSMutableArray array];
-//    for (int i = 0 ; i < 12; i++) {
-//        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@false}];
-//        [a addObject:dic];
-//    }
-//    [self.data replaceObjectAtIndex:1 withObject:a];
-//
-//    NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@false, @"seleted":@true}];
-//    [self.data.firstObject replaceObjectAtIndex:4 withObject:d];
-//
-//
+    //    NSMutableArray *array = [NSMutableArray array];
+    //    for (int i = 0 ; i < 12; i++) {
+    //        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@false, @"seleted":@false}];
+    //
+    //        [dic setObject:@(0) forKey:@"data"];
+    //        [array addObject:dic];
+    //    }
+    //
+    //
+    //
+    //    for (int i = 0; i < rowMax; i++) {
+    //        NSMutableArray *m = [NSMutableArray arrayWithArray:array];
+    //        [self.data addObject:m];
+    //    }
+    //
+    //
+    //    NSMutableArray *a = [NSMutableArray array];
+    //    for (int i = 0 ; i < 12; i++) {
+    //        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@false}];
+    //        [a addObject:dic];
+    //    }
+    //    [self.data replaceObjectAtIndex:1 withObject:a];
+    //
+    //    NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@false, @"seleted":@true}];
+    //    [self.data.firstObject replaceObjectAtIndex:4 withObject:d];
+    //
+    //
 }
 
 #pragma mark 换行
@@ -654,7 +669,7 @@
     
     // 更改当前行背景
     [self.data replaceObjectAtIndex:self.row withObject:array];
-//    [FMDB updateDetail:self.row detailId:self.detailId background:0];
+    //    [FMDB updateDetail:self.row detailId:self.detailId background:0];
     
     NSMutableArray *a = [NSMutableArray array];
     for (int i = 0 ; i < 12; i++) {
@@ -669,10 +684,10 @@
         [self.data addObject:a];
         [FMDB insertDetail:self.row + 1 detailId:self.detailId];
     }
-
-
+    
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@true}];
-
+    
     // 更改中间行
     [self.data[self.row] replaceObjectAtIndex:4 withObject:d];
     DetailModel *model1 = [DetailModel initWithDetailId:self.detailId row:4 column:self.row mark:0 data:number background:0 seleted:0];
@@ -692,40 +707,40 @@
     NSArray *array = @[@3, @5, @6 ,@4];
     
     NSMutableDictionary *d = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(number), @"background":@true, @"seleted":@false}];
-
+    
     [self.data[self.row] replaceObjectAtIndex:[a[self.count - 1] integerValue] withObject:d];
     DetailModel *model1 = [DetailModel initWithDetailId:self.detailId row:[a[self.count - 1] integerValue] column:self.row mark:0 data:number background:1 seleted:0];
     [FMDB updateDetail:model1];
-
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@true}];
     [self.data[self.row] replaceObjectAtIndex:[array[self.count - 1] integerValue] withObject:dic];
     DetailModel *model2 = [DetailModel initWithDetailId:self.detailId row:[array[self.count - 1] integerValue] column:self.row mark:0 data:0 background:1 seleted:1];
     [FMDB updateDetail:model2];
     
     [self.collectionView reloadData];
-
+    
 }
 
 #pragma mark 判断5，6行数字
 // 判断5，6行数字
 - (void)judgeResidue {
     NSMutableArray *array = [NSMutableArray arrayWithArray:@[@(1),@(2),@(3),@(4),@(5),@(6)]];
-//    for (NSNumber *number in self.seletedArray) {
-//        for (int i = 0; i < array.count; i++) {
-//            if([array[i] integerValue] == [number integerValue]){
-//                [array removeObject:array[i]];
-//            }
-//        }
-//    }
+    //    for (NSNumber *number in self.seletedArray) {
+    //        for (int i = 0; i < array.count; i++) {
+    //            if([array[i] integerValue] == [number integerValue]){
+    //                [array removeObject:array[i]];
+    //            }
+    //        }
+    //    }
     [array removeObjectsInArray:self.seletedArray];
-//    NSLog(@"剩余数字：%@", array);
+    //    NSLog(@"剩余数字：%@", array);
     
     // 判断前一row 5，6行数字
     NSInteger tmp;
     NSInteger a = [array.firstObject integerValue];
     NSInteger b = [array.lastObject integerValue];
     if (self.row - 1 != 0) {
-
+        
         if (([[self.data[self.row - 1][8] objectForKey:@"data"] integerValue] == a) || ([[self.data[self.row - 1][7] objectForKey:@"data"] integerValue] == b)){
             tmp = a;
             a = b;
@@ -736,7 +751,7 @@
     [self.data[self.row] replaceObjectAtIndex:7 withObject:d];
     DetailModel *model1 = [DetailModel initWithDetailId:self.detailId row:7 column:self.row mark:0 data:a background:1 seleted:0];
     [FMDB updateDetail:model1];
-        
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(b), @"background":@true, @"seleted":@false}];
     [self.data[self.row] replaceObjectAtIndex:8 withObject:dic];
     DetailModel *model2 = [DetailModel initWithDetailId:self.detailId row:8 column:self.row mark:0 data:b background:1 seleted:0];
@@ -744,7 +759,7 @@
     
     //清除已选择数字
     [self.seletedArray removeAllObjects];
-
+    
     [self.collectionView reloadData];
     
 }
@@ -772,7 +787,7 @@
     [GCDQueue executeInGlobalQueue:^{
         [FMDB updateDetail:model2];
     }];
-//    NSLog(@"{\nfirst: %ld,\ncenter: %ld}", first, center);
+    //    NSLog(@"{\nfirst: %ld,\ncenter: %ld}", first, center);
     
 }
 // 获取数字在前一row的位置
@@ -824,8 +839,8 @@
         [FMDB updateDetail:model3];
     }];
     
-//    NSLog(@"{\ncenter: %ld,\nfirst: %ld,\nthird: %ld}", center, first, third);
-
+    //    NSLog(@"{\ncenter: %ld,\nfirst: %ld,\nthird: %ld}", center, first, third);
+    
 }
 
 - (NSInteger)getBottom:(NSInteger)number {
@@ -838,7 +853,7 @@
         }
     }
     return 0;
-
+    
 }
 
 #pragma mark 设置前一行标志 有标志的情况
@@ -907,8 +922,11 @@
     [self createRightButton:YES or:YES];
     
     if (self.count == 0) {
-        
-        [self preLine];
+        if (self.row == 1) {
+            [self preLineZero];
+        }else{
+            [self preLine];
+        }
         return;
     }
     NSArray *array = [NSArray arrayWithArray:self.data[self.row]];
@@ -979,9 +997,12 @@
     [FMDB updateDetail:model2];
     
     self.count --;
-    if (self.row == 1 && self.count == 0 ) {
-        [self createRightButton:NO or:YES];
+    if (self.listModel.skip) {
+        if (self.row == 1 && self.count == 0 ) {
+            [self createRightButton:NO or:YES];
+        }
     }
+    
     [self.collectionView reloadData];
     
 }
@@ -1028,10 +1049,51 @@
     
     
     self.row --;
+    
     self.listModel.row = self.row;
     [FMDB updateTableList:self.listModel];
     [self.bottomView setAllButtonGreen];
     self.count = 4;
+    [self.collectionView reloadData];
+}
+
+// 跳转到上一行
+- (void)preLineZero {
+    NSMutableArray *a = [NSMutableArray array];
+    for (int i = 0 ; i < 12; i++) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@false}];
+        [a addObject:dic];
+    }
+    // 删除或更改本行背景
+    if (self.row < rowMax) {
+        [self.data replaceObjectAtIndex:self.row withObject:a];
+        [FMDB updateDetail:self.row detailId:self.detailId background:1];
+    }else{
+        [self.data removeLastObject];
+        [FMDB deleteDetail:self.row detailId:self.detailId];
+    }
+    
+    // 修改前一行数据 背景
+    NSMutableArray *array = [NSMutableArray array];
+    array = self.data[self.row - 1];
+    
+    NSInteger current = [[array[4] objectForKey:@"data"] integerValue];
+    [self.deleteArray addObject:@(current)];
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@false, @"seleted":@true}];
+    [array replaceObjectAtIndex:4 withObject:dic];
+    DetailModel *model = [DetailModel initWithDetailId:self.detailId row:4 column:self.row-1 mark:0 data:0 background:0 seleted:1];
+    [FMDB updateDetail:model];
+    
+    
+    
+    self.row --;
+    
+    self.listModel.row = self.row;
+    [FMDB updateTableList:self.listModel];
+    [self.bottomView setAllButtonGreen];
+    self.count = 4;
+    [self createRightButton:NO or:YES];
     [self.collectionView reloadData];
 }
 
@@ -1114,7 +1176,7 @@
     
     UIImage * image = [self captureImageFromView:window];
     // 图片保存相册
-//    UIImage *image = [UIImage imageNamed:@"cellBack"];
+    //    UIImage *image = [UIImage imageNamed:@"cellBack"];
     UIImageWriteToSavedPhotosAlbum(image,self,@selector(imageSavedToPhotosAlbum: didFinishSavingWithError: contextInfo:),nil);
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"分享当前屏幕" preferredStyle:UIAlertControllerStyleAlert];
@@ -1123,7 +1185,7 @@
     UIAlertAction *weChatOneAction = [UIAlertAction actionWithTitle:@"分享至微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         if ([WXApi isWXAppInstalled]) {
-//            [WXApi openWXApp];
+            //            [WXApi openWXApp];
             WXMediaMessage *message = [WXMediaMessage message];
             // 设置消息缩略图的方法
             CGSize size = CGSizeMake(100, 100);
@@ -1134,22 +1196,22 @@
             [message setThumbImage:resultImage];
             // 多媒体消息中包含的图片数据对象
             WXImageObject *imageObject = [WXImageObject object];
-
+            
             //        UIImage *image = _shareImage.image;
-
+            
             // 图片真实数据内容
-
+            
             NSData *data = UIImagePNGRepresentation(image);
             imageObject.imageData = data;
             // 多媒体数据对象，可以为WXImageObject，WXMusicObject，WXVideoObject，WXWebpageObject等。
             message.mediaObject = imageObject;
-
+            
             SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
             req.bText = NO;
             req.message = message;
             req.scene = WXSceneSession;
-
-//            [WXApi sendReq:req];
+            
+            //            [WXApi sendReq:req];
             [GCDQueue executeInMainQueue:^{
                 [WXApi sendReq:req];
             }];
@@ -1163,14 +1225,14 @@
     
     [alertController addAction:weChatOneAction];
     [alertController addAction:cancelAction];
-
-//    if ([alertController respondsToSelector:@selector(popoverPresentationController)]) {
-//
-//        alertController.popoverPresentationController.sourceView = self.view; //必须加
-//
-////        alertVC.popoverPresentationController.sourceRect = CGRectMake(0, kScreenHeight, kScreenWidth, kScreenHeight);//可选，我这里加这句代码是为了调整到合适的位置
-//
-//    }
+    
+    //    if ([alertController respondsToSelector:@selector(popoverPresentationController)]) {
+    //
+    //        alertController.popoverPresentationController.sourceView = self.view; //必须加
+    //
+    ////        alertVC.popoverPresentationController.sourceRect = CGRectMake(0, kScreenHeight, kScreenWidth, kScreenHeight);//可选，我这里加这句代码是为了调整到合适的位置
+    //
+    //    }
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
@@ -1180,11 +1242,11 @@
 
 {
     if(!error) {
-//        [self showHUD:@"成功保存到相册"];
+        //        [self showHUD:@"成功保存到相册"];
         
     }else {
-//        NSString *message = [error description];
-//        [self showHUD:message];
+        //        NSString *message = [error description];
+        //        [self showHUD:message];
     }
     
 }
@@ -1194,18 +1256,18 @@
 -(UIImage *)captureImageFromView:(UIView *)view{
     
     UIGraphicsBeginImageContextWithOptions(view.frame.size,NO, 0);
-
+    
     [[UIColor clearColor] setFill];
-
+    
     [[UIBezierPath bezierPathWithRect:self.view.bounds] fill];
-
+    
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-
-//    [self.view.layer renderInContext:ctx];
+    
+    //    [self.view.layer renderInContext:ctx];
     [self.navigationController.view.layer renderInContext:ctx];
-
+    
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-
+    
     UIGraphicsEndImageContext();
     
     return image;
@@ -1220,54 +1282,54 @@
     self.collectionView.contentInset = UIEdgeInsetsMake(0, -60, 0, 0);
     UIButton *button = [self.bottomView viewWithTag:101];
     [self recoverData:button];
-
+    
     [self createRightButton:NO or:NO];
-
+    
 }
 
 - (void)wechat:(UIImage *)image {
     NSLog(@"%@",image);
-//    WXMediaMessage *message = [WXMediaMessage message];
-//    // 设置消息缩略图的方法
-//    [message setThumbImage:image];
-//    // 多媒体消息中包含的图片数据对象
+    //    WXMediaMessage *message = [WXMediaMessage message];
+    //    // 设置消息缩略图的方法
+    //    [message setThumbImage:image];
+    //    // 多媒体消息中包含的图片数据对象
     WXImageObject *imageObject = [WXImageObject object];
-//
-////    UIImage *image = [UIImage imageNamed:@"要分享的图片名"];
-//
-//
-//    // 图片真实数据内容
-//
+    //
+    ////    UIImage *image = [UIImage imageNamed:@"要分享的图片名"];
+    //
+    //
+    //    // 图片真实数据内容
+    //
     NSData *data = UIImagePNGRepresentation(image);
     imageObject.imageData = data;
     // 多媒体数据对象，可以为WXImageObject，WXMusicObject，WXVideoObject，WXWebpageObject等。
-//    message.mediaObject = imageObject;
-//
-//    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
-//    req.bText = NO;
-//    req.message = message;
-//    req.scene = WXSceneSession;// 分享到朋友圈
-//    [WXApi sendReq:req];
-//    NSData *data1 = UIImageJPEGRepresentation(image, 0.1);
-//    UIImage *resultImage = [UIImage imageWithData:data1];
+    //    message.mediaObject = imageObject;
+    //
+    //    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+    //    req.bText = NO;
+    //    req.message = message;
+    //    req.scene = WXSceneSession;// 分享到朋友圈
+    //    [WXApi sendReq:req];
+    //    NSData *data1 = UIImageJPEGRepresentation(image, 0.1);
+    //    UIImage *resultImage = [UIImage imageWithData:data1];
     CGSize size = CGSizeMake(100, 100);
     UIGraphicsBeginImageContext(size);
     [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
     UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-
+    
     WXMediaMessage *message = [self messageWithTitle:nil
-                                                   Description:nil
-                                                        Object:imageObject
-                                                    MessageExt:@"这是第三方带的测试字段"
-                                                 MessageAction:@"<action>dotalist</action>"
-                                                    ThumbImage:resultImage
-                                                      MediaTag:@"WECHAT_TAG_JUMP_APP"];
+                                         Description:nil
+                                              Object:imageObject
+                                          MessageExt:@"这是第三方带的测试字段"
+                                       MessageAction:@"<action>dotalist</action>"
+                                          ThumbImage:resultImage
+                                            MediaTag:@"WECHAT_TAG_JUMP_APP"];
     
     SendMessageToWXReq* req = [self requestWithText:nil
-                                                   OrMediaMessage:message
-                                                            bText:NO
-                                                          InScene:WXSceneSession];
+                                     OrMediaMessage:message
+                                              bText:NO
+                                            InScene:WXSceneSession];
     
     [WXApi sendReq:req];
     NSLog(@"分享%d", [WXApi sendReq:req]);
@@ -1298,9 +1360,9 @@
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.bText = bText;
     req.scene = scene;
-//    if (req.scene == WXSceneSpecifiedSession) {
-//        req.toUserOpenId = @"oyAaTjoAesTaqxEm8pm2FQ4UZMkM";
-//    }
+    //    if (req.scene == WXSceneSpecifiedSession) {
+    //        req.toUserOpenId = @"oyAaTjoAesTaqxEm8pm2FQ4UZMkM";
+    //    }
     if (bText)
         req.text = text;
     else

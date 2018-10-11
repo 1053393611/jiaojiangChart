@@ -36,7 +36,7 @@
                 background = 0;
             }
             [self.master inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                NSString *sql = [NSString stringWithFormat:@"insert into tbl_Detail (detailId,row,column,mark,data,background,seleted) values ('%@',%d,%d,0,0,%ld,%ld)", detailId, i, j, background, seleted];
+                NSString *sql = [NSString stringWithFormat:@"insert into tbl_Detail (detailId,row,column,mark,data,background,seleted) values ('%@',%d,%d,0,0,%ld,%ld)", detailId, i, j, (long)background, seleted];
                 
                 BOOL result = [db executeUpdate:sql];
                 if ( !result ) {
