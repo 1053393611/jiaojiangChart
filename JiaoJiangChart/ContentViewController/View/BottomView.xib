@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -56,7 +56,7 @@
                     </userDefinedRuntimeAttributes>
                 </button>
                 <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTY-nt-qcp" customClass="BottomButton">
-                    <rect key="frame" x="570.5" y="5" width="55" height="55"/>
+                    <rect key="frame" x="590.5" y="5" width="55" height="55"/>
                     <color key="backgroundColor" red="0.86274509799999999" green="0.98039215690000003" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="D7L-5X-7m7"/>
@@ -76,7 +76,7 @@
                     </userDefinedRuntimeAttributes>
                 </button>
                 <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dwk-RN-wYk" customClass="BottomButton">
-                    <rect key="frame" x="500.5" y="5" width="55" height="55"/>
+                    <rect key="frame" x="515.5" y="5" width="55" height="55"/>
                     <color key="backgroundColor" red="0.86274509799999999" green="0.98039215690000003" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="55" id="ATm-pD-FaR"/>
@@ -96,7 +96,7 @@
                     </userDefinedRuntimeAttributes>
                 </button>
                 <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCk-Yn-cXq" customClass="BottomButton">
-                    <rect key="frame" x="430.5" y="5" width="55" height="55"/>
+                    <rect key="frame" x="440.5" y="5" width="55" height="55"/>
                     <color key="backgroundColor" red="0.86274509799999999" green="0.98039215690000003" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="55" id="Mrb-EM-7uw"/>
@@ -116,7 +116,7 @@
                     </userDefinedRuntimeAttributes>
                 </button>
                 <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Pg-np-5xH" customClass="BottomButton">
-                    <rect key="frame" x="360.5" y="5" width="55" height="55"/>
+                    <rect key="frame" x="365.5" y="5" width="55" height="55"/>
                     <color key="backgroundColor" red="0.86274509799999999" green="0.98039215690000003" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="55" id="X30-3f-MGY"/>
@@ -136,7 +136,7 @@
                     </userDefinedRuntimeAttributes>
                 </button>
                 <button opaque="NO" tag="202" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kpO-Hq-Rli" customClass="BottomButton">
-                    <rect key="frame" x="125.5" y="5" width="55" height="55"/>
+                    <rect key="frame" x="120.5" y="5" width="55" height="55"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="55" id="4sf-Bn-LkB"/>
@@ -156,7 +156,7 @@
                     </userDefinedRuntimeAttributes>
                 </button>
                 <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vpb-zn-LPY" customClass="BottomButton">
-                    <rect key="frame" x="220.5" y="5" width="55" height="55"/>
+                    <rect key="frame" x="215.5" y="5" width="55" height="55"/>
                     <color key="backgroundColor" red="0.86274509803921573" green="0.98039215690000003" blue="0.86274509803921573" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="Bvc-s2-TOM"/>
@@ -176,7 +176,7 @@
                     </userDefinedRuntimeAttributes>
                 </button>
                 <button opaque="NO" tag="201" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8L-Mx-39r" customClass="BottomButton">
-                    <rect key="frame" x="55.5" y="5" width="55" height="55"/>
+                    <rect key="frame" x="45.5" y="5" width="55" height="55"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="55" id="Wiy-ZD-ePC"/>
@@ -269,23 +269,23 @@
             <constraints>
                 <constraint firstItem="Y8L-Mx-39r" firstAttribute="centerY" secondItem="QCX-4R-AdT" secondAttribute="centerY" id="19x-a7-1I8"/>
                 <constraint firstItem="kpO-Hq-Rli" firstAttribute="centerY" secondItem="QCX-4R-AdT" secondAttribute="centerY" id="3XA-lB-O82"/>
-                <constraint firstItem="Dwk-RN-wYk" firstAttribute="leading" secondItem="mCk-Yn-cXq" secondAttribute="trailing" constant="15" id="47R-oc-v3h"/>
-                <constraint firstItem="kpO-Hq-Rli" firstAttribute="leading" secondItem="Y8L-Mx-39r" secondAttribute="trailing" constant="15" id="84Y-V1-viB"/>
+                <constraint firstItem="Dwk-RN-wYk" firstAttribute="leading" secondItem="mCk-Yn-cXq" secondAttribute="trailing" constant="20" id="47R-oc-v3h"/>
+                <constraint firstItem="kpO-Hq-Rli" firstAttribute="leading" secondItem="Y8L-Mx-39r" secondAttribute="trailing" constant="20" id="84Y-V1-viB"/>
                 <constraint firstItem="Vpb-zn-LPY" firstAttribute="centerY" secondItem="QCX-4R-AdT" secondAttribute="centerY" id="EDq-BL-Zxg"/>
                 <constraint firstItem="Fqw-7V-VCB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="KHY-0Q-j5N"/>
                 <constraint firstItem="NTY-nt-qcp" firstAttribute="centerY" secondItem="QCX-4R-AdT" secondAttribute="centerY" id="Lvp-3U-A7A"/>
-                <constraint firstItem="mCk-Yn-cXq" firstAttribute="leading" secondItem="5Pg-np-5xH" secondAttribute="trailing" constant="15" id="Pud-SI-IIj"/>
+                <constraint firstItem="mCk-Yn-cXq" firstAttribute="leading" secondItem="5Pg-np-5xH" secondAttribute="trailing" constant="20" id="Pud-SI-IIj"/>
                 <constraint firstItem="QCX-4R-AdT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="SHJ-Et-DBS"/>
-                <constraint firstItem="QCX-4R-AdT" firstAttribute="leading" secondItem="Vpb-zn-LPY" secondAttribute="trailing" constant="15" id="SNP-Kh-Sjt"/>
+                <constraint firstItem="QCX-4R-AdT" firstAttribute="leading" secondItem="Vpb-zn-LPY" secondAttribute="trailing" constant="20" id="SNP-Kh-Sjt"/>
                 <constraint firstAttribute="bottom" secondItem="c55-ix-dlk" secondAttribute="bottom" id="ST7-nO-u5z"/>
                 <constraint firstItem="mCk-Yn-cXq" firstAttribute="centerY" secondItem="QCX-4R-AdT" secondAttribute="centerY" id="SgT-P5-Xty"/>
                 <constraint firstItem="Dwk-RN-wYk" firstAttribute="centerY" secondItem="QCX-4R-AdT" secondAttribute="centerY" id="WVb-IS-VaB"/>
                 <constraint firstItem="c55-ix-dlk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="XrR-6R-EsI"/>
-                <constraint firstItem="5Pg-np-5xH" firstAttribute="leading" secondItem="QCX-4R-AdT" secondAttribute="trailing" constant="15" id="b9N-iR-b6n"/>
+                <constraint firstItem="5Pg-np-5xH" firstAttribute="leading" secondItem="QCX-4R-AdT" secondAttribute="trailing" constant="20" id="b9N-iR-b6n"/>
                 <constraint firstItem="Vpb-zn-LPY" firstAttribute="leading" secondItem="kpO-Hq-Rli" secondAttribute="trailing" constant="40" id="d7X-ke-qbj"/>
                 <constraint firstItem="QCX-4R-AdT" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="fUi-NJ-yOe"/>
                 <constraint firstItem="c55-ix-dlk" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hmN-oi-Z05"/>
-                <constraint firstItem="NTY-nt-qcp" firstAttribute="leading" secondItem="Dwk-RN-wYk" secondAttribute="trailing" constant="15" id="obx-K3-cyy"/>
+                <constraint firstItem="NTY-nt-qcp" firstAttribute="leading" secondItem="Dwk-RN-wYk" secondAttribute="trailing" constant="20" id="obx-K3-cyy"/>
                 <constraint firstItem="5Pg-np-5xH" firstAttribute="centerY" secondItem="QCX-4R-AdT" secondAttribute="centerY" id="pUi-xV-Mze"/>
                 <constraint firstItem="Fqw-7V-VCB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="vL7-hG-dOc"/>
                 <constraint firstAttribute="trailing" secondItem="c55-ix-dlk" secondAttribute="trailing" id="wvc-ml-2Br"/>
@@ -295,14 +295,14 @@
         </view>
     </objects>
     <resources>
-        <image name="isMark" width="43" height="43"/>
-        <image name="number-1" width="43" height="43"/>
-        <image name="number-2" width="43" height="43"/>
-        <image name="number-3" width="43" height="43"/>
-        <image name="number-4" width="43" height="43"/>
-        <image name="number-5" width="43" height="43"/>
-        <image name="number-6" width="43" height="43"/>
-        <image name="share" width="43" height="43"/>
-        <image name="width" width="43" height="43"/>
+        <image name="isMark" width="86" height="86"/>
+        <image name="number-1" width="86" height="86"/>
+        <image name="number-2" width="86" height="86"/>
+        <image name="number-3" width="86" height="86"/>
+        <image name="number-4" width="86" height="86"/>
+        <image name="number-5" width="86" height="86"/>
+        <image name="number-6" width="86" height="86"/>
+        <image name="share" width="86" height="86"/>
+        <image name="width" width="86" height="86"/>
     </resources>
 </document>

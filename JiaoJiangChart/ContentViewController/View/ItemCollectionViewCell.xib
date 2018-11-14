@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,10 +25,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="274" height="305"/>
                             </imageView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mark" translatesAutoresizingMaskIntoConstraints="NO" id="BrE-1Y-3NT">
-                                <rect key="frame" x="0.0" y="5" width="274" height="295"/>
+                                <rect key="frame" x="0.0" y="0.0" width="274" height="305"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BZ5-3T-2LF">
-                                <rect key="frame" x="0.0" y="5" width="274" height="290"/>
+                                <rect key="frame" x="0.0" y="0.0" width="274" height="300"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYI-0T-YHS">
                                 <rect key="frame" x="0.0" y="304" width="274" height="1"/>
@@ -50,19 +50,19 @@
                             <constraint firstItem="5yN-hC-PBB" firstAttribute="leading" secondItem="ZbJ-Im-XWf" secondAttribute="leading" id="BlX-rV-ux0"/>
                             <constraint firstItem="5yN-hC-PBB" firstAttribute="top" secondItem="ZbJ-Im-XWf" secondAttribute="top" id="C1d-6Y-fRz"/>
                             <constraint firstAttribute="bottom" secondItem="5yN-hC-PBB" secondAttribute="bottom" id="DGm-N2-lMh"/>
-                            <constraint firstAttribute="bottom" secondItem="BrE-1Y-3NT" secondAttribute="bottom" constant="5" id="FUr-av-zLs"/>
+                            <constraint firstAttribute="bottom" secondItem="BrE-1Y-3NT" secondAttribute="bottom" id="FUr-av-zLs"/>
                             <constraint firstAttribute="trailing" secondItem="AqA-Jy-9Oa" secondAttribute="trailing" id="P3d-Ql-Ccd"/>
                             <constraint firstItem="AqA-Jy-9Oa" firstAttribute="top" secondItem="ZbJ-Im-XWf" secondAttribute="top" id="TjN-Xo-oTB"/>
                             <constraint firstItem="BZ5-3T-2LF" firstAttribute="leading" secondItem="ZbJ-Im-XWf" secondAttribute="leading" id="VFS-eO-4Xd"/>
                             <constraint firstAttribute="trailing" secondItem="BZ5-3T-2LF" secondAttribute="trailing" id="cL1-3Z-eDQ"/>
-                            <constraint firstItem="BZ5-3T-2LF" firstAttribute="top" secondItem="ZbJ-Im-XWf" secondAttribute="top" constant="5" id="hBY-AU-rVT"/>
+                            <constraint firstItem="BZ5-3T-2LF" firstAttribute="top" secondItem="ZbJ-Im-XWf" secondAttribute="top" id="hBY-AU-rVT"/>
                             <constraint firstAttribute="bottom" secondItem="AqA-Jy-9Oa" secondAttribute="bottom" id="hxH-mi-xCm"/>
                             <constraint firstItem="BrE-1Y-3NT" firstAttribute="leading" secondItem="ZbJ-Im-XWf" secondAttribute="leading" id="mXG-gy-JLI"/>
                             <constraint firstAttribute="trailing" secondItem="BrE-1Y-3NT" secondAttribute="trailing" id="pXH-qC-dNy"/>
                             <constraint firstItem="AqA-Jy-9Oa" firstAttribute="leading" secondItem="ZbJ-Im-XWf" secondAttribute="leading" id="qyg-e8-VfD"/>
-                            <constraint firstItem="BrE-1Y-3NT" firstAttribute="top" secondItem="ZbJ-Im-XWf" secondAttribute="top" constant="5" id="vzz-uy-gKW"/>
+                            <constraint firstItem="BrE-1Y-3NT" firstAttribute="top" secondItem="ZbJ-Im-XWf" secondAttribute="top" id="vzz-uy-gKW"/>
                             <constraint firstItem="hYI-0T-YHS" firstAttribute="leading" secondItem="ZbJ-Im-XWf" secondAttribute="leading" id="wKR-8h-Mw6"/>
-                            <constraint firstAttribute="bottom" secondItem="BZ5-3T-2LF" secondAttribute="bottom" constant="10" id="wXi-1j-FAB"/>
+                            <constraint firstAttribute="bottom" secondItem="BZ5-3T-2LF" secondAttribute="bottom" constant="5" id="wXi-1j-FAB"/>
                             <constraint firstAttribute="trailing" secondItem="5yN-hC-PBB" secondAttribute="trailing" id="yEY-WR-vlj"/>
                         </constraints>
                     </view>
