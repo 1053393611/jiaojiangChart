@@ -33,6 +33,7 @@
 //@property (assign, nonatomic)  NSInteger contentofset;  // 记录偏移值
 
 @property (assign, nonatomic)  BOOL isMark; // 是否有标志
+@property (assign, nonatomic)  BOOL isUp; // 是否有数字
 
 
 @property (strong, nonatomic) UILabel *titleLabel;
@@ -54,6 +55,7 @@
     self.view.backgroundColor = DefaultBackColor;
     //    self.contentofset = 0;
     self.isMark = NO;
+    self.isUp = NO;
     //    self.isUpdate = NO;
     itemWidth = 60;
     //    self.count = 0;
@@ -255,6 +257,9 @@
     
     UIButton *widthButton = [self.bottomView viewWithTag:202];
     [widthButton addTarget:self action:@selector(widthAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *upButton = [self.bottomView viewWithTag:203];
+    [upButton addTarget:self action:@selector(upAction) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *deleteButton = [self.bottomView viewWithTag:301];
     [deleteButton addTarget:self action:@selector(deleteAction) forControlEvents:UIControlEventTouchUpInside];
@@ -482,8 +487,12 @@
 
 // row宽度
 - (void)widthAction {
-    itemWidth += 5;
-    if (itemWidth > 70) {
+//    itemWidth += 5;
+    if (itemWidth == 60) {
+        itemWidth = 65;
+    }else if (itemWidth == 65) {
+        itemWidth = 56;
+    }else{
         itemWidth = 60;
     }
     [self createCollectionView];
@@ -560,6 +569,31 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+// 显示 隐藏 数字
+- (void)upAction {
+    self.isUp = !self.isUp;
+    if (self.isUp) {
+        [UIView animateWithDuration:5 animations:^{
+            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(self.view.mas_left);
+                make.right.mas_equalTo(self.view.mas_right);
+                make.top.mas_equalTo(self.collectionView.mas_bottom).offset(-20);
+                make.height.mas_equalTo(70);
+            }];
+        }];
+       
+    }else{
+        [UIView animateWithDuration:5 animations:^{
+            [self.bottomView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(self.view.mas_left);
+                make.right.mas_equalTo(self.view.mas_right);
+                make.top.mas_equalTo(self.collectionView.mas_bottom);
+                make.height.mas_equalTo(70);
+            }];
+        }];
+        
+    }
+}
 
 
 

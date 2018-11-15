@@ -39,6 +39,8 @@
 		0FF2EE64214A5E0500353E7E /* ItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF2EE62214A5E0500353E7E /* ItemCollectionViewCell.m */; };
 		0FF2EE65214A5E0500353E7E /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FF2EE63214A5E0500353E7E /* ItemCollectionViewCell.xib */; };
 		0FF2EE67214A653D00353E7E /* ContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FF2EE66214A653D00353E7E /* ContentViewController.xib */; };
+		0FFC819D219D1AB80096CE4E /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFC819B219D1AB80096CE4E /* HeaderView.m */; };
+		0FFC819E219D1AB80096CE4E /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FFC819C219D1AB80096CE4E /* HeaderView.xib */; };
 		0FFE7473216C8789004C16DD /* GCDQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFE746F216C8789004C16DD /* GCDQueue.m */; };
 		0FFE7474216C8789004C16DD /* GCDGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FFE7470216C8789004C16DD /* GCDGroup.m */; };
 		2D5559792B92921EF1F31C08 /* libPods-JiaoJiangChart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4086AE3D4F3E5403CB3715 /* libPods-JiaoJiangChart.a */; };
@@ -124,6 +126,9 @@
 		0FF2EE62214A5E0500353E7E /* ItemCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItemCollectionViewCell.m; sourceTree = "<group>"; };
 		0FF2EE63214A5E0500353E7E /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		0FF2EE66214A653D00353E7E /* ContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContentViewController.xib; sourceTree = "<group>"; };
+		0FFC819A219D1AB80096CE4E /* HeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderView.h; sourceTree = "<group>"; };
+		0FFC819B219D1AB80096CE4E /* HeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderView.m; sourceTree = "<group>"; };
+		0FFC819C219D1AB80096CE4E /* HeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		0FFE746F216C8789004C16DD /* GCDQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDQueue.m; sourceTree = "<group>"; };
 		0FFE7470216C8789004C16DD /* GCDGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDGroup.m; sourceTree = "<group>"; };
 		0FFE7471216C8789004C16DD /* GCDQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDQueue.h; sourceTree = "<group>"; };
@@ -285,6 +290,9 @@
 				0F11505F214B99A600490BAD /* BottomView.xib */,
 				0F115068214BA08500490BAD /* BottomButton.h */,
 				0F115069214BA08500490BAD /* BottomButton.m */,
+				0FFC819A219D1AB80096CE4E /* HeaderView.h */,
+				0FFC819B219D1AB80096CE4E /* HeaderView.m */,
+				0FFC819C219D1AB80096CE4E /* HeaderView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -509,6 +517,7 @@
 				0FF2EE67214A653D00353E7E /* ContentViewController.xib in Resources */,
 				0F0BFF222149F7C1004C597F /* LaunchScreen.storyboard in Resources */,
 				0FF2EE65214A5E0500353E7E /* ItemCollectionViewCell.xib in Resources */,
+				0FFC819E219D1AB80096CE4E /* HeaderView.xib in Resources */,
 				0F0BFF1F2149F7C1004C597F /* Assets.xcassets in Resources */,
 				0F0BFF1D2149F7C0004C597F /* Main.storyboard in Resources */,
 				0F5BCD562169DEB5000CF836 /* LoginViewController.xib in Resources */,
@@ -571,6 +580,7 @@
 				0F901D2C214F939800D99DE3 /* FMDBManager+TableList.m in Sources */,
 				0F115066214B9A5B00490BAD /* UIControl+XIBLayer.m in Sources */,
 				0F5BCD552169DEB5000CF836 /* LoginViewController.m in Sources */,
+				0FFC819D219D1AB80096CE4E /* HeaderView.m in Sources */,
 				0F0BFF492149FC87004C597F /* HomeTableViewCell.m in Sources */,
 				0F9CA45E2150FD91005A6A3D /* CustomPopOverView.m in Sources */,
 				0FE74F052169F5D300C9846A /* NetworkManager.m in Sources */,

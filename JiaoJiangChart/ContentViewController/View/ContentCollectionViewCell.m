@@ -8,8 +8,9 @@
 
 #import "ContentCollectionViewCell.h"
 #import "ItemCollectionViewCell.h"
+#import "HeaderView.h"
 
-#define HeadHeight 30
+#define HeadHeight (20 * 2)
 
 
 @interface ContentCollectionViewCell()<UICollectionViewDataSource, UICollectionViewDelegate>{
@@ -18,8 +19,8 @@
 
 @property (strong, nonatomic)UICollectionView *collectionView;
 
-@property (strong, nonatomic)UILabel *labelRow;
-@property (strong, nonatomic)UIImageView *imgView;
+//@property (strong, nonatomic)UILabel *labelRow;
+//@property (strong, nonatomic)UIImageView *imgView;
 
 @property (copy, nonatomic)NSString *row;
 @property (copy, nonatomic)NSMutableArray *data;
@@ -85,7 +86,10 @@
     self.collectionView.delegate = self;
 //    [self.collectionView registerClass:[ItemCollectionViewCell class] forCellWithReuseIdentifier:@"itemCell"];
     [self.collectionView registerNib:[UINib nibWithNibName:@"ItemCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"itemCell"];
-    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+//    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+//    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"HeaderView" bundle:[NSBundle mainBundle]] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"HeaderView" bundle:[NSBundle mainBundle]] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
     
     [self.contentView addSubview:self.collectionView];
     
@@ -134,64 +138,91 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
-    UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
-//    header.backgroundColor = RGB(236, 237,241);
-    self.imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemWidth, HeadHeight)];
-    self.imgView.image = [UIImage imageNamed:@"background"];
-    [header addSubview:self.imgView];
-    
-    
-    self.labelRow = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, itemWidth, HeadHeight)];
-    self.labelRow.text = self.row;
-    self.labelRow.backgroundColor = DefaultBackColor;
-    self.labelRow.textAlignment = NSTextAlignmentCenter;
-    
-    [header addSubview:self.labelRow];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, HeadHeight - 1, itemWidth, 1)];
-    label.backgroundColor = [UIColor colorWithSome:201];
-    
-    [header addSubview:label];
-    
-    
-    
-    if (self.currentRow > self.index) {
-        self.labelRow.text = self.row;
-        self.imgView.hidden = YES;
-        self.labelRow.backgroundColor = DefaultBackColor;
-    }else if (self.currentRow == self.index){
-        self.labelRow.text = self.row;
-        self.imgView.hidden = NO;
-        self.labelRow.backgroundColor = [UIColor clearColor];
-    }else{
-        self.labelRow.text = @"";
-        self.imgView.hidden = YES;
-        self.labelRow.backgroundColor = DefaultBackColor;
-    }
-    
-    if (self.currentRow == 0) {
-        if (self.index == 0) {
-            self.labelRow.text = self.row;
-            self.imgView.hidden = YES;
-            self.labelRow.backgroundColor = DefaultBackColor;
-        }else if(self.index == 1){
-            self.labelRow.text = self.row;
-            self.imgView.hidden = NO;
-            self.labelRow.backgroundColor = [UIColor clearColor];
+    if (kind == UICollectionElementKindSectionHeader) {
+        HeaderView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+        //    header.backgroundColor = RGB(236, 237,241);
+//        self.imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, itemWidth, HeadHeight/2)];
+//        self.imgView.image = [UIImage imageNamed:@"background"];
+//        [header addSubview:self.imgView];
+        
+        
+//        self.labelRow = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, itemWidth, HeadHeight/2)];
+//        self.labelRow.text = self.row;
+//        self.labelRow.backgroundColor = DefaultBackColor;
+//        self.labelRow.textAlignment = NSTextAlignmentCenter;
+        
+        
+//        [header addSubview:self.labelRow];
+//
+//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, HeadHeight/2 - 1, itemWidth, 1)];
+//        label.backgroundColor = [UIColor colorWithSome:201];
+//
+//        [header addSubview:label];
+//
+        
+        
+        if (self.currentRow > self.index) {
+            header.labelRow.text = self.row;
+            header.imgView.hidden = YES;
+            header.labelRow.backgroundColor = DefaultBackColor;
+        }else if (self.currentRow == self.index){
+            header.labelRow.text = self.row;
+            header.imgView.hidden = NO;
+            header.labelRow.backgroundColor = [UIColor clearColor];
+        }else{
+            header.labelRow.text = @"";
+            header.imgView.hidden = YES;
+            header.labelRow.backgroundColor = DefaultBackColor;
         }
+        
+        if (self.currentRow == 0) {
+            if (self.index == 0) {
+                header.labelRow.text = self.row;
+                header.imgView.hidden = YES;
+                header.labelRow.backgroundColor = DefaultBackColor;
+            }else if(self.index == 1){
+                header.labelRow.text = self.row;
+                header.imgView.hidden = NO;
+                header.labelRow.backgroundColor = [UIColor clearColor];
+            }
+        }
+        
+        
+        
+        
+        return header;
+    }else {
+        HeaderView *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer" forIndexPath:indexPath];
+        footer.labelRow.text = @"";
+        if (self.currentRow > self.index) {
+            footer.imgView.hidden = YES;
+        }else if (self.currentRow == self.index){
+            footer.imgView.hidden = NO;
+        }else{
+            footer.imgView.hidden = YES;
+        }
+        if (self.currentRow == 0) {
+            if (self.index == 0) {
+                footer.imgView.hidden = YES;
+            }else if(self.index == 1){
+                footer.imgView.hidden = NO;
+            }
+        }
+        NSInteger data =[[self.data[4] objectForKey:@"data"] integerValue];
+        if (data > 0 && data < 7) {
+            footer.labelRow.text = [NSString stringWithFormat:@"%ld", data];
+        }
+        footer.labelRow.textColor = [UIColor redColor];
+        return footer;
     }
     
-    
-    
-    
-    return header;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(itemWidth, HeadHeight);
+    return CGSizeMake(itemWidth, HeadHeight/2);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    return CGSizeMake(0, 0);
+    return CGSizeMake(itemWidth, HeadHeight/2);
 }
 
 
