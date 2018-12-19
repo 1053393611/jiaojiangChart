@@ -28,11 +28,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="274" height="305"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BZ5-3T-2LF">
-                                <rect key="frame" x="0.0" y="0.0" width="274" height="300"/>
+                                <rect key="frame" x="0.0" y="3" width="274" height="295"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYI-0T-YHS">
                                 <rect key="frame" x="0.0" y="304" width="274" height="1"/>
-                                <color key="backgroundColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.70588235294117641" green="0.70588235294117641" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="7wy-pZ-T5b"/>
                                 </constraints>
@@ -55,14 +55,14 @@
                             <constraint firstItem="AqA-Jy-9Oa" firstAttribute="top" secondItem="ZbJ-Im-XWf" secondAttribute="top" id="TjN-Xo-oTB"/>
                             <constraint firstItem="BZ5-3T-2LF" firstAttribute="leading" secondItem="ZbJ-Im-XWf" secondAttribute="leading" id="VFS-eO-4Xd"/>
                             <constraint firstAttribute="trailing" secondItem="BZ5-3T-2LF" secondAttribute="trailing" id="cL1-3Z-eDQ"/>
-                            <constraint firstItem="BZ5-3T-2LF" firstAttribute="top" secondItem="ZbJ-Im-XWf" secondAttribute="top" id="hBY-AU-rVT"/>
+                            <constraint firstItem="BZ5-3T-2LF" firstAttribute="top" secondItem="ZbJ-Im-XWf" secondAttribute="top" constant="3" id="hBY-AU-rVT"/>
                             <constraint firstAttribute="bottom" secondItem="AqA-Jy-9Oa" secondAttribute="bottom" id="hxH-mi-xCm"/>
                             <constraint firstItem="BrE-1Y-3NT" firstAttribute="leading" secondItem="ZbJ-Im-XWf" secondAttribute="leading" id="mXG-gy-JLI"/>
                             <constraint firstAttribute="trailing" secondItem="BrE-1Y-3NT" secondAttribute="trailing" id="pXH-qC-dNy"/>
                             <constraint firstItem="AqA-Jy-9Oa" firstAttribute="leading" secondItem="ZbJ-Im-XWf" secondAttribute="leading" id="qyg-e8-VfD"/>
                             <constraint firstItem="BrE-1Y-3NT" firstAttribute="top" secondItem="ZbJ-Im-XWf" secondAttribute="top" id="vzz-uy-gKW"/>
                             <constraint firstItem="hYI-0T-YHS" firstAttribute="leading" secondItem="ZbJ-Im-XWf" secondAttribute="leading" id="wKR-8h-Mw6"/>
-                            <constraint firstAttribute="bottom" secondItem="BZ5-3T-2LF" secondAttribute="bottom" constant="5" id="wXi-1j-FAB"/>
+                            <constraint firstAttribute="bottom" secondItem="BZ5-3T-2LF" secondAttribute="bottom" constant="7" id="wXi-1j-FAB"/>
                             <constraint firstAttribute="trailing" secondItem="5yN-hC-PBB" secondAttribute="trailing" id="yEY-WR-vlj"/>
                         </constraints>
                     </view>

@@ -1062,9 +1062,18 @@
     array = self.data[self.row - 1];
     for (NSDictionary *dic in array) {
         [dic setValue:@(1) forKey:@"background"];
+        [dic setValue:@(0) forKey:@"mark"];
         DetailModel *model = [DetailModel initWithDetailId:self.detailId row:[array indexOfObject:dic] column:self.row-1 mark:0 data:[[dic objectForKey:@"data"] integerValue] background:1 seleted:0];
         [FMDB updateDetail:model];
     }
+    
+    // 清除上上一行的标志
+    NSMutableArray *array1 = [NSMutableArray array];
+    array1 = self.data[self.row - 2];
+    for (NSDictionary *dic in array1) {
+        [dic setValue:@(0) forKey:@"mark"];
+    }
+    
     NSArray *b = @[@0, @1, @9, @10, @11];
     for (NSNumber *number in b) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"mark":@false, @"data":@(0), @"background":@true, @"seleted":@false}];

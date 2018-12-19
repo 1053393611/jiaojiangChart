@@ -124,6 +124,11 @@
         cell.partLine.hidden = YES;
     }else {
         cell.partLine.hidden = NO;
+        if (indexPath.row == 3 || indexPath.row == 4) {
+            cell.partLine.backgroundColor = [UIColor redColor];
+        }else{
+            cell.partLine.backgroundColor = [UIColor colorWithSome:150];
+        }
     }
     if (indexPath.row == 4) {
         cell.backgroundColor = DefaultBackColor;
